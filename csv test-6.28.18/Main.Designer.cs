@@ -45,6 +45,7 @@
             this.btnInsightCSV = new System.Windows.Forms.Button();
             this.btnKnowbe4CSV = new System.Windows.Forms.Button();
             this.tabPhone = new System.Windows.Forms.TabPage();
+            this.btnCreateCallList = new System.Windows.Forms.Button();
             this.tabReport = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtClient = new System.Windows.Forms.TextBox();
@@ -56,13 +57,13 @@
             this.btnReportShell = new System.Windows.Forms.Button();
             this.imagesMedium = new System.Windows.Forms.ImageList(this.components);
             this.panelHead = new System.Windows.Forms.Panel();
+            this.btnPreview2 = new System.Windows.Forms.Button();
+            this.btnOpenExcelFile = new System.Windows.Forms.Button();
             this.btnPreview = new System.Windows.Forms.Button();
             this.lblPullContacts = new System.Windows.Forms.Label();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
-            this.btnOpenExcelFile = new System.Windows.Forms.Button();
-            this.btnPreview2 = new System.Windows.Forms.Button();
-            this.btnCreateCallList = new System.Windows.Forms.Button();
+            this.imagesLarge = new System.Windows.Forms.ImageList(this.components);
             this.tabMAIN.SuspendLayout();
             this.tabEmail.SuspendLayout();
             this.tabPhone.SuspendLayout();
@@ -153,7 +154,7 @@
             // 
             // txtUserGroup
             // 
-            this.txtUserGroup.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.txtUserGroup.BackColor = System.Drawing.Color.Gray;
             this.txtUserGroup.Enabled = false;
             this.txtUserGroup.Location = new System.Drawing.Point(28, 150);
             this.txtUserGroup.Name = "txtUserGroup";
@@ -204,7 +205,7 @@
             // 
             this.btnCopyClipboard.BackColor = System.Drawing.Color.Gray;
             this.btnCopyClipboard.Enabled = false;
-            this.btnCopyClipboard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnCopyClipboard.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnCopyClipboard.FlatAppearance.BorderSize = 2;
             this.btnCopyClipboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCopyClipboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -250,7 +251,7 @@
             // 
             this.btnInsightCSV.BackColor = System.Drawing.Color.Gray;
             this.btnInsightCSV.Enabled = false;
-            this.btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnInsightCSV.FlatAppearance.BorderSize = 2;
             this.btnInsightCSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInsightCSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -269,7 +270,7 @@
             // 
             this.btnKnowbe4CSV.BackColor = System.Drawing.Color.Gray;
             this.btnKnowbe4CSV.Enabled = false;
-            this.btnKnowbe4CSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnKnowbe4CSV.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnKnowbe4CSV.FlatAppearance.BorderSize = 2;
             this.btnKnowbe4CSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKnowbe4CSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -286,7 +287,7 @@
             // 
             this.tabPhone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
             this.tabPhone.Controls.Add(this.btnCreateCallList);
-            this.tabPhone.ImageIndex = 1;
+            this.tabPhone.ImageIndex = 8;
             this.tabPhone.Location = new System.Drawing.Point(4, 44);
             this.tabPhone.Name = "tabPhone";
             this.tabPhone.Padding = new System.Windows.Forms.Padding(3);
@@ -294,6 +295,25 @@
             this.tabPhone.Size = new System.Drawing.Size(397, 187);
             this.tabPhone.TabIndex = 1;
             this.tabPhone.ToolTipText = "Phone Tools";
+            // 
+            // btnCreateCallList
+            // 
+            this.btnCreateCallList.BackColor = System.Drawing.Color.Gray;
+            this.btnCreateCallList.Enabled = false;
+            this.btnCreateCallList.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnCreateCallList.FlatAppearance.BorderSize = 2;
+            this.btnCreateCallList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateCallList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateCallList.ForeColor = System.Drawing.Color.LightGray;
+            this.btnCreateCallList.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCreateCallList.ImageIndex = 7;
+            this.btnCreateCallList.Location = new System.Drawing.Point(20, 42);
+            this.btnCreateCallList.Name = "btnCreateCallList";
+            this.btnCreateCallList.Size = new System.Drawing.Size(93, 44);
+            this.btnCreateCallList.TabIndex = 4;
+            this.btnCreateCallList.Text = "Create Call List";
+            this.btnCreateCallList.UseVisualStyleBackColor = false;
+            this.btnCreateCallList.Click += new System.EventHandler(this.btnCreateCallList_Click);
             // 
             // tabReport
             // 
@@ -414,13 +434,15 @@
             // 
             this.imagesMedium.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesMedium.ImageStream")));
             this.imagesMedium.TransparentColor = System.Drawing.Color.Transparent;
-            this.imagesMedium.Images.SetKeyName(0, "document-256.ico");
+            this.imagesMedium.Images.SetKeyName(0, "text-file-6-512.ico");
             this.imagesMedium.Images.SetKeyName(1, "phone-18-256.ico");
-            this.imagesMedium.Images.SetKeyName(2, "email-256.ico");
-            this.imagesMedium.Images.SetKeyName(3, "visible-256.ico");
-            this.imagesMedium.Images.SetKeyName(4, "microsoft-word-256 (1).gif");
+            this.imagesMedium.Images.SetKeyName(2, "envelope-open-512.ico");
+            this.imagesMedium.Images.SetKeyName(3, "visible-512.ico");
+            this.imagesMedium.Images.SetKeyName(4, "microsoft-word-512.ico");
             this.imagesMedium.Images.SetKeyName(5, "csv-256.gif");
             this.imagesMedium.Images.SetKeyName(6, "arrow-53-256.gif");
+            this.imagesMedium.Images.SetKeyName(7, "excel-3-512.ico");
+            this.imagesMedium.Images.SetKeyName(8, "phone-2-512.ico");
             // 
             // panelHead
             // 
@@ -436,6 +458,41 @@
             this.panelHead.Size = new System.Drawing.Size(405, 109);
             this.panelHead.TabIndex = 8;
             // 
+            // btnPreview2
+            // 
+            this.btnPreview2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnPreview2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPreview2.BackgroundImage")));
+            this.btnPreview2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPreview2.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnPreview2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPreview2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.btnPreview2.Location = new System.Drawing.Point(249, 12);
+            this.btnPreview2.Margin = new System.Windows.Forms.Padding(1);
+            this.btnPreview2.Name = "btnPreview2";
+            this.btnPreview2.Size = new System.Drawing.Size(27, 22);
+            this.btnPreview2.TabIndex = 3;
+            this.btnPreview2.UseVisualStyleBackColor = false;
+            this.btnPreview2.Visible = false;
+            this.btnPreview2.Click += new System.EventHandler(this.btnPreview2_Click);
+            // 
+            // btnOpenExcelFile
+            // 
+            this.btnOpenExcelFile.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnOpenExcelFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenExcelFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenExcelFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnOpenExcelFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOpenExcelFile.ImageIndex = 1;
+            this.btnOpenExcelFile.ImageList = this.imagesLarge;
+            this.btnOpenExcelFile.Location = new System.Drawing.Point(282, 12);
+            this.btnOpenExcelFile.Name = "btnOpenExcelFile";
+            this.btnOpenExcelFile.Size = new System.Drawing.Size(104, 55);
+            this.btnOpenExcelFile.TabIndex = 2;
+            this.btnOpenExcelFile.Text = "Open\r\nExcel\r\nFile";
+            this.btnOpenExcelFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOpenExcelFile.UseVisualStyleBackColor = true;
+            this.btnOpenExcelFile.Click += new System.EventHandler(this.btnOpenExcelFile_Click);
+            // 
             // btnPreview
             // 
             this.btnPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
@@ -444,7 +501,7 @@
             this.btnPreview.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.btnPreview.Location = new System.Drawing.Point(112, 12);
+            this.btnPreview.Location = new System.Drawing.Point(132, 12);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(1);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(27, 22);
@@ -471,13 +528,13 @@
             this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnOpenFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOpenFile.ImageIndex = 4;
-            this.btnOpenFile.ImageList = this.imagesMedium;
+            this.btnOpenFile.ImageIndex = 0;
+            this.btnOpenFile.ImageList = this.imagesLarge;
             this.btnOpenFile.Location = new System.Drawing.Point(24, 12);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(84, 55);
+            this.btnOpenFile.Size = new System.Drawing.Size(104, 55);
             this.btnOpenFile.TabIndex = 0;
-            this.btnOpenFile.Text = "Open \r\nScope \r\nForm";
+            this.btnOpenFile.Text = "Open \r\nWord\r\nFile";
             this.btnOpenFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
@@ -486,59 +543,15 @@
             // 
             this.toolTips.ToolTipTitle = "Email Tools";
             // 
-            // btnOpenExcelFile
+            // imagesLarge
             // 
-            this.btnOpenExcelFile.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnOpenExcelFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenExcelFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenExcelFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnOpenExcelFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOpenExcelFile.ImageIndex = 4;
-            this.btnOpenExcelFile.ImageList = this.imagesMedium;
-            this.btnOpenExcelFile.Location = new System.Drawing.Point(245, 12);
-            this.btnOpenExcelFile.Name = "btnOpenExcelFile";
-            this.btnOpenExcelFile.Size = new System.Drawing.Size(84, 55);
-            this.btnOpenExcelFile.TabIndex = 2;
-            this.btnOpenExcelFile.Text = "Open    Excel     File";
-            this.btnOpenExcelFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOpenExcelFile.UseVisualStyleBackColor = true;
-            this.btnOpenExcelFile.Click += new System.EventHandler(this.btnOpenExcelFile_Click);
-            // 
-            // btnPreview2
-            // 
-            this.btnPreview2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
-            this.btnPreview2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPreview2.BackgroundImage")));
-            this.btnPreview2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnPreview2.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnPreview2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPreview2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.btnPreview2.Location = new System.Drawing.Point(333, 12);
-            this.btnPreview2.Margin = new System.Windows.Forms.Padding(1);
-            this.btnPreview2.Name = "btnPreview2";
-            this.btnPreview2.Size = new System.Drawing.Size(27, 22);
-            this.btnPreview2.TabIndex = 3;
-            this.btnPreview2.UseVisualStyleBackColor = false;
-            this.btnPreview2.Visible = false;
-            this.btnPreview2.Click += new System.EventHandler(this.btnPreview2_Click);
-            // 
-            // btnCreateCallList
-            // 
-            this.btnCreateCallList.BackColor = System.Drawing.Color.Gray;
-            this.btnCreateCallList.Enabled = false;
-            this.btnCreateCallList.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
-            this.btnCreateCallList.FlatAppearance.BorderSize = 2;
-            this.btnCreateCallList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateCallList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateCallList.ForeColor = System.Drawing.Color.LightGray;
-            this.btnCreateCallList.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCreateCallList.ImageIndex = 7;
-            this.btnCreateCallList.Location = new System.Drawing.Point(20, 42);
-            this.btnCreateCallList.Name = "btnCreateCallList";
-            this.btnCreateCallList.Size = new System.Drawing.Size(93, 44);
-            this.btnCreateCallList.TabIndex = 4;
-            this.btnCreateCallList.Text = "Create Call List";
-            this.btnCreateCallList.UseVisualStyleBackColor = false;
-            this.btnCreateCallList.Click += new System.EventHandler(this.btnCreateCallList_Click);
+            this.imagesLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesLarge.ImageStream")));
+            this.imagesLarge.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesLarge.Images.SetKeyName(0, "microsoft-word-512.gif");
+            this.imagesLarge.Images.SetKeyName(1, "excel-3-512.gif");
+            this.imagesLarge.Images.SetKeyName(2, "envelope-closed-512.ico");
+            this.imagesLarge.Images.SetKeyName(3, "document-2-512.ico");
+            this.imagesLarge.Images.SetKeyName(4, "phone-70-512.gif");
             // 
             // Main
             // 
@@ -600,6 +613,7 @@
         private System.Windows.Forms.Button btnOpenExcelFile;
         private System.Windows.Forms.Button btnPreview2;
         private System.Windows.Forms.Button btnCreateCallList;
+        private System.Windows.Forms.ImageList imagesLarge;
     }
 }
 

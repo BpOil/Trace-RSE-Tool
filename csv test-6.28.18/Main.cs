@@ -73,10 +73,13 @@ namespace csv_test_6._28._18
                     btnCreateCallList.Enabled = true;
                     txtUserGroup.BackColor = System.Drawing.Color.White;
                     btnInsightCSV.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+                    btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
                     btnInsightCSV.ForeColor = System.Drawing.Color.White;
                     btnKnowbe4CSV.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+                    btnKnowbe4CSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
                     btnKnowbe4CSV.ForeColor = System.Drawing.Color.White;
                     btnCreateCallList.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+                    btnCreateCallList.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
                     btnCreateCallList.ForeColor = System.Drawing.Color.White;
                     lblPullContacts.Left = 3;
                     lblPullContacts.Top = 70;
@@ -98,10 +101,13 @@ namespace csv_test_6._28._18
                 btnCreateCallList.Enabled = false;
                 txtUserGroup.BackColor = System.Drawing.Color.Gray;
                 btnInsightCSV.BackColor = System.Drawing.Color.Gray;
+                btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
                 btnInsightCSV.ForeColor = System.Drawing.Color.LightGray;
                 btnKnowbe4CSV.BackColor = System.Drawing.Color.Gray;
+                btnKnowbe4CSV.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
                 btnKnowbe4CSV.ForeColor = System.Drawing.Color.LightGray;
                 btnCreateCallList.BackColor = System.Drawing.Color.Gray;
+                btnCreateCallList.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
                 btnCreateCallList.ForeColor = System.Drawing.Color.LightGray;
                 lblPullContacts.Left = 3;
                 lblPullContacts.Top = 70;
@@ -132,10 +138,13 @@ namespace csv_test_6._28._18
                     btnCreateCallList.Enabled = true;
                     txtUserGroup.BackColor = System.Drawing.Color.White;
                     btnInsightCSV.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+                    btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
                     btnInsightCSV.ForeColor = System.Drawing.Color.White;
                     btnKnowbe4CSV.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+                    btnKnowbe4CSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
                     btnKnowbe4CSV.ForeColor = System.Drawing.Color.White;
                     btnCreateCallList.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+                    btnCreateCallList.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
                     btnCreateCallList.ForeColor = System.Drawing.Color.White;
                     lblPullContacts.Left = 213;
                     lblPullContacts.Top = 68;
@@ -143,8 +152,7 @@ namespace csv_test_6._28._18
                     lblPullContacts.ForeColor = System.Drawing.Color.Lime;
                     lblPullContacts.Text = "Success extracting data";
                     fileType = "Excel";
-                    contactpath = openFile.FileName;
-                    
+                    contactpath = openFile.FileName;                    
                 }
 
             }
@@ -158,10 +166,13 @@ namespace csv_test_6._28._18
                 btnCreateCallList.Enabled = false;
                 txtUserGroup.BackColor = System.Drawing.Color.Gray;
                 btnInsightCSV.BackColor = System.Drawing.Color.Gray;
+                btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
                 btnInsightCSV.ForeColor = System.Drawing.Color.LightGray;
                 btnKnowbe4CSV.BackColor = System.Drawing.Color.Gray;
+                btnKnowbe4CSV.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
                 btnKnowbe4CSV.ForeColor = System.Drawing.Color.LightGray;
                 btnCreateCallList.BackColor = System.Drawing.Color.Gray;
+                btnCreateCallList.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
                 btnCreateCallList.ForeColor = System.Drawing.Color.LightGray;
                 lblPullContacts.Left = 213;
                 lblPullContacts.Top = 68;
@@ -730,6 +741,7 @@ namespace csv_test_6._28._18
             btnCopyClipboard.Enabled = true;
             cboPayloadPicker.Enabled = true;
             btnCopyClipboard.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+            btnCopyClipboard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
             btnCopyClipboard.ForeColor = System.Drawing.Color.White;
             cboPayloadPicker.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
             cboPayloadPicker.ForeColor = System.Drawing.Color.White;
@@ -763,6 +775,7 @@ namespace csv_test_6._28._18
             btnCopyClipboard.Enabled = true;
             cboPayloadPicker.Enabled = true;
             btnCopyClipboard.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
+            btnCopyClipboard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
             btnCopyClipboard.ForeColor = System.Drawing.Color.White;
             cboPayloadPicker.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
             cboPayloadPicker.ForeColor = System.Drawing.Color.White;
