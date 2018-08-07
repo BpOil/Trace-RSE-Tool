@@ -12,6 +12,7 @@ using System.Diagnostics;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using ExcelDataReader;
 
 namespace csv_test_6._28._18
 {
@@ -34,6 +35,7 @@ namespace csv_test_6._28._18
 
         }
 
+       
 
         // **METHOD THAT OPENS FILE EXPLORER AND FOCUSES THE NEWLY SAVED ITEM BY THE USER
         private void OpenFolder(string folderPath)
@@ -118,7 +120,7 @@ namespace csv_test_6._28._18
             toolOpenFile.SetToolTip(btnOpenExcelFile, "Open Excel Sheet");
             try
             {
-                OpenFileDialog openFile = new OpenFileDialog() { Filter = "Excel Workbook|*.xls;*.xlsx;*.csv", ValidateNames = true };
+                OpenFileDialog openFile = new OpenFileDialog() { Filter = "Excel Workbook|*.xls;*.xlsx;*.csv", ValidateNames = true };                
                 DialogResult result = openFile.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -142,6 +144,7 @@ namespace csv_test_6._28._18
                     lblPullContacts.Text = "Success extracting data";
                     fileType = "Excel";
                     contactpath = openFile.FileName;
+                    
                 }
 
             }
@@ -190,30 +193,141 @@ namespace csv_test_6._28._18
             newpreview.FileType = fileType;
             newpreview.ShowDialog();
         }
+// ****************************************************************************************************************************************************************************************************
+// ****************************************************************************************************************************************************************************************************
+// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+// ********-----------------------------------------------------------------C R E A T E   C S V   F I L E   S T U F F--------------------------------------------------------------------------********
+// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+// ****************************************************************************************************************************************************************************************************
+// ****************************************************************************************************************************************************************************************************
 
         private void btnInsightCSV_Click(object sender, EventArgs e)
         {
             string userGroup = txtUserGroup.Text.ToString();
             Read reading = new Read();
-            reading.NameFile = contactpath;
-            // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
-            string[] copyHeader = reading.TableHeader();
-            // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
-            string[,] copyData = reading.WordDoc();
-            // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-            int rowcount = copyData.GetUpperBound(0) + 1;
-            int colcount = copyData.GetUpperBound(1) + 1;
-            // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
-            string[,] reorderData = new string[rowcount, 7];
-            try
+
+            //   __________________________
+            // ||__________________________||
+            // ||                          ||
+            // ||   W O R D   V A L U E S  ||
+            // ||__________________________||
+            // ||__________________________||
+            if (fileType == "Word")
             {
+                reading.NameFile = contactpath;
+                // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
+                string[] copyHeader = reading.WordTableHeader();
+                // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
+                string[,] copyData = reading.WordDoc();
+                // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
+                int rowcount = copyData.GetUpperBound(0) + 1;
+                int colcount = copyData.GetUpperBound(1) + 1;
+                // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
+                string[,] reorderData = new string[rowcount, 7];
+                try
+                {
+                    for (int i = 0; i < rowcount; i++)
+                    {
+                        for (int j = 0; j < colcount; j++)
+                        {
+                            //   __________________________
+                            // ||                          ||
+                            // ||  B L A N K   V A L U E S ||
+                            // ||__________________________||
+                            // SET MIDDLE NAME VALUE
+                            reorderData[i, 1] = " ";
+                            // SET USERGROUP VALUE
+                            if (!String.IsNullOrWhiteSpace(userGroup))
+                            {
+                                reorderData[i, 6] = userGroup;
+                            }
+                            else
+                            {
+                                reorderData[i, 6] = " ";
+                            }
+                            // SET FIRST NAME VALUE
+                            if (copyHeader[j].Contains("first"))
+                            {
+                                reorderData[i, 0] = copyData[i, j];
+                            }
+                            // SET LAST NAME VALUE
+                            else if (copyHeader[j].Contains("last"))
+                            {
+                                reorderData[i, 2] = copyData[i, j];
+                            }
+                            // SET TITLE VALUE
+                            else if (copyHeader[j].Contains("title"))
+                            {
+                                reorderData[i, 3] = copyData[i, j];
+                            }
+                            // SET PHONE NUMBER VALUE
+                            else if (copyHeader[j].Contains("phone"))
+                            {
+                                reorderData[i, 4] = copyData[i, j];
+                            }
+                            // SET EMAIL ADDRESS VALUE
+                            else if (copyHeader[j].Contains("email"))
+                            {
+                                reorderData[i, 5] = copyData[i, j];
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+                    string thisfile = String.Empty;
+                    // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
+                    SaveFileDialog fileStream = new SaveFileDialog();
+                    fileStream.FileName = "insightupload.csv";
+                    fileStream.DefaultExt = ".csv";
+                    fileStream.Filter = "Comma Separated files (*.csv)|*.csv";
+                    // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
+                    DialogResult result = fileStream.ShowDialog();
+                    // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
+                    if (result == DialogResult.OK)
+                    {
+                        thisfile = fileStream.FileName;
+                    }
+                    // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
+                    Create makeFile = new Create(fileType, contactpath, thisfile, reorderData);
+                    // CALL CREATE CLASS'S CSV-MAKING METHOD
+                    makeFile.InsightUpload();
+                    OpenFolder(thisfile);
+                }
+                catch
+                {
+                    MessageBox.Show("Unable to export data to file properly.");
+                }
+            }
+
+            //   __________________________
+            // ||__________________________||
+            // ||                          ||
+            // ||  E X C E L   V A L U E S ||
+            // ||__________________________||
+            // ||__________________________||
+            else if (fileType == "Excel")
+            {
+                reading.NameFile = contactpath;
+                // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
+                string[] copyHeader = reading.ExcelTableHeader();
+                // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
+                string[,] copyData = reading.ExcelDoc();
+                // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
+                int rowcount = copyData.GetUpperBound(0);
+                int colcount = copyData.GetUpperBound(1) + 1;
+                // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
+                string[,] reorderData = new string[rowcount, 7];
+
                 for (int i = 0; i < rowcount; i++)
                 {
                     for (int j = 0; j < colcount; j++)
                     {
-                        //*************************
-                        //**   BLANK VALUES   *****
-                        //*************************
+                        //   __________________________
+                        // ||                          ||
+                        // ||  B L A N K   V A L U E S ||
+                        // ||__________________________||
                         // SET MIDDLE NAME VALUE
                         reorderData[i, 1] = " ";
                         // SET USERGROUP VALUE
@@ -256,7 +370,6 @@ namespace csv_test_6._28._18
                         }
                     }
                 }
-
                 string thisfile = String.Empty;
                 // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
                 SaveFileDialog fileStream = new SaveFileDialog();
@@ -271,137 +384,336 @@ namespace csv_test_6._28._18
                     thisfile = fileStream.FileName;
                 }
                 // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
-                Create makeFile = new Create(contactpath, thisfile, reorderData);
+                Create makeFile = new Create(fileType, contactpath, thisfile, reorderData);
                 // CALL CREATE CLASS'S CSV-MAKING METHOD
                 makeFile.InsightUpload();
                 OpenFolder(thisfile);
+                //try
+                //{
+                //    for (int i = 0; i < rowcount; i++)
+                //    {
+                //        for (int j = 0; j < colcount; j++)
+                //        {
+                //            //   __________________________
+                //            // ||                          ||
+                //            // ||  B L A N K   V A L U E S ||
+                //            // ||__________________________||
+                //            // SET MIDDLE NAME VALUE
+                //            reorderData[i, 1] = " ";
+                //            // SET USERGROUP VALUE
+                //            if (!String.IsNullOrWhiteSpace(userGroup))
+                //            {
+                //                reorderData[i, 6] = userGroup;
+                //            }
+                //            else
+                //            {
+                //                reorderData[i, 6] = " ";
+                //            }
+                //            // SET FIRST NAME VALUE
+                //            if (copyHeader[j].Contains("first"))
+                //            {
+                //                reorderData[i, 0] = copyData[i, j];
+                //            }
+                //            // SET LAST NAME VALUE
+                //            else if (copyHeader[j].Contains("last"))
+                //            {
+                //                reorderData[i, 2] = copyData[i, j];
+                //            }
+                //            // SET TITLE VALUE
+                //            else if (copyHeader[j].Contains("title"))
+                //            {
+                //                reorderData[i, 3] = copyData[i, j];
+                //            }
+                //            // SET PHONE NUMBER VALUE
+                //            else if (copyHeader[j].Contains("phone"))
+                //            {
+                //                reorderData[i, 4] = copyData[i, j];
+                //            }
+                //            // SET EMAIL ADDRESS VALUE
+                //            else if (copyHeader[j].Contains("email"))
+                //            {
+                //                reorderData[i, 5] = copyData[i, j];
+                //            }
+                //            else
+                //            {
 
+                //            }
+                //        }
+                //    }
+                //    string thisfile = String.Empty;
+                //    // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
+                //    SaveFileDialog fileStream = new SaveFileDialog();
+                //    fileStream.FileName = "insightupload.csv";
+                //    fileStream.DefaultExt = ".csv";
+                //    fileStream.Filter = "Comma Separated files (*.csv)|*.csv";
+                //    // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
+                //    DialogResult result = fileStream.ShowDialog();
+                //    // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
+                //    if (result == DialogResult.OK)
+                //    {
+                //        thisfile = fileStream.FileName;
+                //    }
+                //    // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
+                //    Create makeFile = new Create(fileType, contactpath, thisfile, reorderData);
+                //    // CALL CREATE CLASS'S CSV-MAKING METHOD
+                //    makeFile.InsightUpload();
+                //    OpenFolder(thisfile);
+
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Unable to export data to file properly.");
+                //}
             }
-            catch
-            {
-                MessageBox.Show("Unable to export data to file properly.");
-            }
+            
 
         }
         private void btnKnowbe4CSV_Click(object sender, EventArgs e)
         {
             string userGroup = txtUserGroup.Text.ToString();
             Read reading = new Read();
-            reading.NameFile = contactpath;
-            // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
-            string[] copyHeader = reading.TableHeader();
-            // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
-            string[,] copyData = reading.WordDoc();
-            // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-            int rowcount = copyData.GetUpperBound(0) + 1;
-            int colcount = copyData.GetUpperBound(1) + 1;
-            // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
-            string[,] reorderData = new string[rowcount, 15];
 
-            try
+            //   __________________________
+            // ||__________________________||
+            // ||                          ||
+            // ||   W O R D   V A L U E S  ||
+            // ||__________________________||
+            // ||__________________________||
+            if (fileType == "Word")
             {
-                for (int i = 0; i < rowcount; i++)
-                {
-                    for (int j = 0; j < colcount; j++)
-                    {
-                        //*************************
-                        //**BLANK VALUES***********
-                        //*************************
-                        // SET LOCATION VALUE
-                        reorderData[i, 6] = " ";
-                        // SET DIVISION VALUE
-                        reorderData[i, 7] = " ";
-                        // SET MANAGER NAME VALUE
-                        reorderData[i, 8] = " ";
-                        // SET MANAGER EMAIL VALUE
-                        reorderData[i, 9] = " ";
-                        // SET EMPLOYEE NUMBER VALUE
-                        reorderData[i, 10] = " ";
-                        // SET PASSWORD VALUE
-                        reorderData[i, 12] = " ";
-                        // SET MOBILE NUMBER VALUE
-                        reorderData[i, 13] = " ";
-                        // SET AD MANAGED VALUE
-                        reorderData[i, 14] = " ";
-                        // SET USERGROUP VALUE
-                        if (!String.IsNullOrWhiteSpace(userGroup))
-                        {
-                            reorderData[i, 5] = userGroup;
-                        }
-                        else
-                        {
-                            reorderData[i, 5] = " ";
-                        }
-                        // SET EMAIL VALUE
-                        if (copyHeader[j].Contains("email"))
-                        {
-                            reorderData[i, 0] = copyData[i, j];
-                        }
-                        // SET FIRST NAME VALUE
-                        else if (copyHeader[j].Contains("first"))
-                        {
-                            reorderData[i, 1] = copyData[i, j];
-                        }
-                        // SET LAST NAME VALUE
-                        else if (copyHeader[j].Contains("last"))
-                        {
-                            reorderData[i, 2] = copyData[i, j];
-                        }
-                        // SET PHONE NUMBER VALUE
-                        else if (copyHeader[j].Contains("phone"))
-                        {
-                            reorderData[i, 3] = copyData[i, j];
-                        }
-                        // SET EXTENSION VALUE
-                        else if (copyHeader[j].Contains("ext") || copyHeader[j].Contains("extension"))
-                        {
-                            reorderData[i, 4] = copyData[i, j];
-                        }
-                        // SET TITLE VALUE
-                        else if (copyHeader[j].Contains("title"))
-                        {
-                            reorderData[i, 11] = copyData[i, j];
-                        }
-                        else
-                        {
+                reading.NameFile = contactpath;
+                // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
+                string[] copyHeader = reading.WordTableHeader();
+                // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
+                string[,] copyData = reading.WordDoc();
+                // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
+                int rowcount = copyData.GetUpperBound(0) + 1;
+                int colcount = copyData.GetUpperBound(1) + 1;
+                // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
+                string[,] reorderData = new string[rowcount, 15];
 
+                try
+                {
+                    for (int i = 0; i < rowcount; i++)
+                    {
+                        for (int j = 0; j < colcount; j++)
+                        {
+                            //   __________________________
+                            // ||                          ||
+                            // ||  B L A N K   V A L U E S ||
+                            // ||__________________________||
+                            // SET LOCATION VALUE
+                            reorderData[i, 6] = " ";
+                            // SET DIVISION VALUE
+                            reorderData[i, 7] = " ";
+                            // SET MANAGER NAME VALUE
+                            reorderData[i, 8] = " ";
+                            // SET MANAGER EMAIL VALUE
+                            reorderData[i, 9] = " ";
+                            // SET EMPLOYEE NUMBER VALUE
+                            reorderData[i, 10] = " ";
+                            // SET PASSWORD VALUE
+                            reorderData[i, 12] = " ";
+                            // SET MOBILE NUMBER VALUE
+                            reorderData[i, 13] = " ";
+                            // SET AD MANAGED VALUE
+                            reorderData[i, 14] = " ";
+                            // SET USERGROUP VALUE
+                            if (!String.IsNullOrWhiteSpace(userGroup))
+                            {
+                                reorderData[i, 5] = userGroup;
+                            }
+                            else
+                            {
+                                reorderData[i, 5] = " ";
+                            }
+                            // SET EMAIL VALUE
+                            if (copyHeader[j].Contains("email"))
+                            {
+                                reorderData[i, 0] = copyData[i, j];
+                            }
+                            // SET FIRST NAME VALUE
+                            else if (copyHeader[j].Contains("first"))
+                            {
+                                reorderData[i, 1] = copyData[i, j];
+                            }
+                            // SET LAST NAME VALUE
+                            else if (copyHeader[j].Contains("last"))
+                            {
+                                reorderData[i, 2] = copyData[i, j];
+                            }
+                            // SET PHONE NUMBER VALUE
+                            else if (copyHeader[j].Contains("phone"))
+                            {
+                                reorderData[i, 3] = copyData[i, j];
+                            }
+                            // SET EXTENSION VALUE
+                            else if (copyHeader[j].Contains("ext") || copyHeader[j].Contains("extension"))
+                            {
+                                reorderData[i, 4] = copyData[i, j];
+                            }
+                            // SET TITLE VALUE
+                            else if (copyHeader[j].Contains("title"))
+                            {
+                                reorderData[i, 11] = copyData[i, j];
+                            }
+                            else
+                            {
+
+                            }
                         }
                     }
-                }
 
-                string thisfile = String.Empty;
-                // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
-                SaveFileDialog fileStream = new SaveFileDialog();
-                fileStream.FileName = "resellerupload.csv";
-                fileStream.DefaultExt = ".csv";
-                fileStream.Filter = "Comma Separated files (*.csv)|*.csv";
-                // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
-                DialogResult result = fileStream.ShowDialog();
-                // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
-                if (result == DialogResult.OK)
-                {
-                    thisfile = fileStream.FileName;
+                    string thisfile = String.Empty;
+                    // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
+                    SaveFileDialog fileStream = new SaveFileDialog();
+                    fileStream.FileName = "resellerupload.csv";
+                    fileStream.DefaultExt = ".csv";
+                    fileStream.Filter = "Comma Separated files (*.csv)|*.csv";
+                    // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
+                    DialogResult result = fileStream.ShowDialog();
+                    // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
+                    if (result == DialogResult.OK)
+                    {
+                        thisfile = fileStream.FileName;
+                    }
+                    // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
+                    Create makeFile = new Create(fileType, contactpath, thisfile, reorderData);
+                    // CALL CREATE CLASS'S CSV-MAKING METHOD
+                    makeFile.ResellerUpload();
+                    OpenFolder(thisfile);
                 }
-                // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
-                Create makeFile = new Create(contactpath, thisfile, reorderData);
-                // CALL CREATE CLASS'S CSV-MAKING METHOD
-                makeFile.ResellerUpload();
-                OpenFolder(thisfile);
+                catch
+                {
+                    MessageBox.Show("Unable to export data to file properly.");
+                }
             }
-            catch
+            //   __________________________
+            // ||__________________________||
+            // ||                          ||
+            // ||  E X C E L   V A L U E S ||
+            // ||__________________________||
+            // ||__________________________||
+            else if (fileType == "Excel")
             {
-                MessageBox.Show("Unable to export data to file properly.");
+                reading.NameFile = contactpath;
+                // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
+                string[] copyHeader = reading.ExcelTableHeader();
+                // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
+                string[,] copyData = reading.ExcelDoc();
+                // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
+                int rowcount = copyData.GetUpperBound(0) + 1;
+                int colcount = copyData.GetUpperBound(1) + 1;
+                // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
+                string[,] reorderData = new string[rowcount, 15];
+
+                try
+                {
+                    for (int i = 0; i < rowcount; i++)
+                    {
+                        for (int j = 0; j < colcount; j++)
+                        {
+                            //   __________________________
+                            // ||                          ||
+                            // ||  B L A N K   V A L U E S ||
+                            // ||__________________________||
+                            // SET LOCATION VALUE
+                            reorderData[i, 6] = " ";
+                            // SET DIVISION VALUE
+                            reorderData[i, 7] = " ";
+                            // SET MANAGER NAME VALUE
+                            reorderData[i, 8] = " ";
+                            // SET MANAGER EMAIL VALUE
+                            reorderData[i, 9] = " ";
+                            // SET EMPLOYEE NUMBER VALUE
+                            reorderData[i, 10] = " ";
+                            // SET PASSWORD VALUE
+                            reorderData[i, 12] = " ";
+                            // SET MOBILE NUMBER VALUE
+                            reorderData[i, 13] = " ";
+                            // SET AD MANAGED VALUE
+                            reorderData[i, 14] = " ";
+                            // SET USERGROUP VALUE
+                            if (!String.IsNullOrWhiteSpace(userGroup))
+                            {
+                                reorderData[i, 5] = userGroup;
+                            }
+                            else
+                            {
+                                reorderData[i, 5] = " ";
+                            }
+                            // SET EMAIL VALUE
+                            if (copyHeader[j].Contains("email"))
+                            {
+                                reorderData[i, 0] = copyData[i, j];
+                            }
+                            // SET FIRST NAME VALUE
+                            else if (copyHeader[j].Contains("first"))
+                            {
+                                reorderData[i, 1] = copyData[i, j];
+                            }
+                            // SET LAST NAME VALUE
+                            else if (copyHeader[j].Contains("last"))
+                            {
+                                reorderData[i, 2] = copyData[i, j];
+                            }
+                            // SET PHONE NUMBER VALUE
+                            else if (copyHeader[j].Contains("phone"))
+                            {
+                                reorderData[i, 3] = copyData[i, j];
+                            }
+                            // SET EXTENSION VALUE
+                            else if (copyHeader[j].Contains("ext") || copyHeader[j].Contains("extension"))
+                            {
+                                reorderData[i, 4] = copyData[i, j];
+                            }
+                            // SET TITLE VALUE
+                            else if (copyHeader[j].Contains("title"))
+                            {
+                                reorderData[i, 11] = copyData[i, j];
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+
+                    string thisfile = String.Empty;
+                    // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
+                    SaveFileDialog fileStream = new SaveFileDialog();
+                    fileStream.FileName = "resellerupload.csv";
+                    fileStream.DefaultExt = ".csv";
+                    fileStream.Filter = "Comma Separated files (*.csv)|*.csv";
+                    // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
+                    DialogResult result = fileStream.ShowDialog();
+                    // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
+                    if (result == DialogResult.OK)
+                    {
+                        thisfile = fileStream.FileName;
+                    }
+                    // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
+                    Create makeFile = new Create(fileType, contactpath, thisfile, reorderData);
+                    // CALL CREATE CLASS'S CSV-MAKING METHOD
+                    makeFile.ResellerUpload();
+                    OpenFolder(thisfile);
+                }
+                catch
+                {
+                    MessageBox.Show("Unable to export data to file properly.");
+                }
             }
         }
 
+// ****************************************************************************************************************************************************************************************************
+// ****************************************************************************************************************************************************************************************************
+// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+// ********------------------------------------------------------------------------P A Y L O A D   S T U F F-----------------------------------------------------------------------------------********
+// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+// ****************************************************************************************************************************************************************************************************
+// ****************************************************************************************************************************************************************************************************
 
-        // ***************************************************************************************************************************************************************
-        // ***************************************************************************************************************************************************************
-        // ********-----------------------------------------------------------------------------------------------------------------------------------------------********
-        // ********--------------------------------------------P A Y L O A D    S T U F F-------------------------------------------------------------------------********
-        // ********-----------------------------------------------------------------------------------------------------------------------------------------------********
-        // ***************************************************************************************************************************************************************
-        // ***************************************************************************************************************************************************************
+
         private void btnCopyClipboard_Click(object sender, EventArgs e)
         {
             if (cboPayloadPicker.SelectedIndex != -1 && (radInsight.Checked || radKnowBe4.Checked))
@@ -487,85 +799,85 @@ namespace csv_test_6._28._18
 
         private void btnReportShell_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Read reading = new Read();
-                reading.NameFile = contactpath;
-                // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
-                string[] copyHeader = reading.TableHeader();
-                // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
-                string[,] copyData = reading.WordDoc();
-                // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-                int rowcount = copyData.GetUpperBound(0) + 1;
-                int colcount = copyData.GetUpperBound(1) + 1;
-                // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
-                string[,] filterData = new string[rowcount, 5];
-                string[,] reorderedData = new string[rowcount, 4];
-                for (int i = 0; i < rowcount; i++)
-                {
-                    for (int j = 0; j < colcount; j++)
-                    {
-                        // SET FIRST NAME VALUE
-                        if (copyHeader[j].Contains("first"))
-                        {
-                            filterData[i, 0] = copyData[i, j];
-                        }
-                        // SET LAST NAME VALUE
-                        else if (copyHeader[j].Contains("last"))
-                        {
-                            filterData[i, 1] = copyData[i, j];
-                        }
-                        // SET PHONE NUMBER VALUE
-                        else if (copyHeader[j].Contains("phone"))
-                        {
-                            filterData[i, 2] = copyData[i, j];
-                        }
-                        // SET EXTENSION VALUE
-                        else if (copyHeader[j].Contains("ext"))
-                        {
-                            filterData[i, 3] = copyData[i, j];
-                        }
-                        // SET EMAIL ADDRESS VALUE
-                        else if (copyHeader[j].Contains("email"))
-                        {
-                            filterData[i, 4] = copyData[i, j];
-                        }
-                    }
-                }
-                for (int a = 0; a < filterData.GetUpperBound(0) + 1; a++)
-                {
-                    reorderedData[a, 0] = filterData[a, 0] + " " + filterData[a, 1];
-                    for (int b = 1; b <= 4; b++)
-                    {
-                        reorderedData[a, b] = filterData[a, b];
-                    }
-                }
-                string saveFile = string.Empty;
-                string tempFile = @"reports\RSE Vishing Report.docx";
-                // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
-                SaveFileDialog fileStream = new SaveFileDialog();
-                fileStream.FileName = "RSE Vishing Report.docx";
-                fileStream.DefaultExt = ".docx";
-                fileStream.Filter = "Word Document File (*.docx)|*.docx";
-                // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
-                DialogResult result = fileStream.ShowDialog();
-                // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
-                if (result == DialogResult.OK)
-                {
-                    saveFile = fileStream.FileName;
-                }
-                // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
-                Create makeFile = new Create();
-                makeFile.ReportFile = tempFile;
-                makeFile.PerfectArray = reorderedData;
-                makeFile.SaveFile = saveFile;
-                makeFile.MakeReport();
-            }
+            //try
+            //{
+            //    Read reading = new Read();
+            //    reading.NameFile = contactpath;
+            //    // CREATE AN ARRAY TO HOLD HEADER VALUES FROM FILE
+            //    string[] copyHeader = reading.WordTableHeader();
+            //    // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
+            //    string[,] copyData = reading.WordDoc();
+            //    // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
+            //    int rowcount = copyData.GetUpperBound(0) + 1;
+            //    int colcount = copyData.GetUpperBound(1) + 1;
+            //    // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
+            //    string[,] filterData = new string[rowcount, 5];
+            //    string[,] reorderedData = new string[rowcount, 4];
+            //    for (int i = 0; i < rowcount; i++)
+            //    {
+            //        for (int j = 0; j < colcount; j++)
+            //        {
+            //            // SET FIRST NAME VALUE
+            //            if (copyHeader[j].Contains("first"))
+            //            {
+            //                filterData[i, 0] = copyData[i, j];
+            //            }
+            //            // SET LAST NAME VALUE
+            //            else if (copyHeader[j].Contains("last"))
+            //            {
+            //                filterData[i, 1] = copyData[i, j];
+            //            }
+            //            // SET PHONE NUMBER VALUE
+            //            else if (copyHeader[j].Contains("phone"))
+            //            {
+            //                filterData[i, 2] = copyData[i, j];
+            //            }
+            //            // SET EXTENSION VALUE
+            //            else if (copyHeader[j].Contains("ext"))
+            //            {
+            //                filterData[i, 3] = copyData[i, j];
+            //            }
+            //            // SET EMAIL ADDRESS VALUE
+            //            else if (copyHeader[j].Contains("email"))
+            //            {
+            //                filterData[i, 4] = copyData[i, j];
+            //            }
+            //        }
+            //    }
+            //    for (int a = 0; a < filterData.GetUpperBound(0) + 1; a++)
+            //    {
+            //        reorderedData[a, 0] = filterData[a, 0] + " " + filterData[a, 1];
+            //        for (int b = 1; b <= 4; b++)
+            //        {
+            //            reorderedData[a, b] = filterData[a, b];
+            //        }
+            //    }
+            //    string saveFile = string.Empty;
+            //    string tempFile = @"reports\RSE Vishing Report.docx";
+            //    // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
+            //    SaveFileDialog fileStream = new SaveFileDialog();
+            //    fileStream.FileName = "RSE Vishing Report.docx";
+            //    fileStream.DefaultExt = ".docx";
+            //    fileStream.Filter = "Word Document File (*.docx)|*.docx";
+            //    // DISPLAY THE CREATE FILE SAVE DIALOG BOX TO THE USER
+            //    DialogResult result = fileStream.ShowDialog();
+            //    // OBTAIN THE SAVE FILE NAME/LOCATION FROM USER INPUT  
+            //    if (result == DialogResult.OK)
+            //    {
+            //        saveFile = fileStream.FileName;
+            //    }
+            //    // CALL CREATE CLASS AND ASSIGN VALUES FOR READ FILE, SAVE FILE, AND PROPERLY-ORDERED DATA
+            //    Create makeFile = new Create();
+            //    makeFile.ReportFile = tempFile;
+            //    makeFile.PerfectArray = reorderedData;
+            //    makeFile.SaveFile = saveFile;
+            //    makeFile.MakeReport();
+            //}
 
-            catch
-            {
-                MessageBox.Show("Something went wrong");
-            }
+            //catch
+            //{
+            //    MessageBox.Show("Something went wrong");
+            //}
         }
 
         //method that will create a new Excel Sheet that will be used when making calls to clients 

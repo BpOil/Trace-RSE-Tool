@@ -8,6 +8,7 @@ using System.Diagnostics;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.Data;
 
 namespace csv_test_6._28._18
 {
@@ -17,23 +18,28 @@ namespace csv_test_6._28._18
         private string readFile;
         private string saveFile;
         private string[,] perfectArray;
-        public Create()
+        public string fileType;
+        public Create(string pFileType)
         {
+            fileType = pFileType;
             readFile = String.Empty;
             saveFile = String.Empty;            
         }
-        public Create(string pFile)
+        public Create(string pFileType, string pFile)
         {
+            fileType = pFileType;
             readFile = pFile;
             saveFile = String.Empty;
         }
-        public Create(string pFile, string pSave)
+        public Create(string pFileType, string pFile, string pSave)
         {
+            fileType = pFileType;
             readFile = pFile;
             saveFile = pSave;
         }
-        public Create(string pFile, string pSave, string [,] pArray)
+        public Create(string pFileType, string pFile, string pSave, string [,] pArray)
         {
+            fileType = pFileType;
             readFile = pFile;
             saveFile = pSave;
             perfectArray = pArray;
@@ -57,7 +63,7 @@ namespace csv_test_6._28._18
         {
             get { return perfectArray; }
             set { perfectArray = value; }
-        }
+        }        
 
         
         //|||||||||||||||||||||||||||||||
@@ -65,33 +71,74 @@ namespace csv_test_6._28._18
         //|||||||||||||||||||||||||||||||
 
         public void InsightUpload()
-        {
+        {            
             Read readtowrite = new Read();
             readtowrite.NameFile = readFile;
-            int rownum = readtowrite.WordDoc().GetUpperBound(0) + 1;
-            StreamWriter outputFile;
-            outputFile = File.AppendText(saveFile);
-            outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
-            for (int i = 0; i < rownum; i++)
+            if (fileType == "Word")
             {
-                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
+                int rownum = perfectArray.GetUpperBound(0) + 1;
+                StreamWriter outputFile;
+                outputFile = File.AppendText(saveFile);
+                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
+                for (int i = 0; i < rownum; i++)
+                {
+                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
+                }
+                outputFile.Close();
             }
-            outputFile.Close();            
+
+            else if (fileType == "Excel")
+            {
+                int rownum = perfectArray.GetUpperBound(0) + 1;
+                StreamWriter outputFile;
+                outputFile = File.AppendText(saveFile);
+                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
+                for (int i = 0; i < rownum; i++)
+                {
+                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
+                }
+                outputFile.Close();
+            }
+            
         }
         public void ResellerUpload()
         {
-            Read readtowrite = new Read();
-            readtowrite.NameFile = readFile;
-            int rownum = readtowrite.WordDoc().GetUpperBound(0) + 1;
-            StreamWriter outputFile;
-            outputFile = File.AppendText(saveFile);
-            outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
-            for (int i = 0; i < rownum; i++)
+            if (fileType == "Word")
             {
-                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
+                Read readtowrite = new Read();
+                readtowrite.NameFile = readFile;
+                int rownum = perfectArray.GetUpperBound(0) + 1;
+                StreamWriter outputFile;
+                outputFile = File.AppendText(saveFile);
+                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
+                for (int i = 0; i < rownum; i++)
+                {
+                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
+                }
+                outputFile.Close();
             }
-            outputFile.Close();           
+
+            else if (fileType == "Excel")
+            {
+                Read readtowrite = new Read();
+                readtowrite.NameFile = readFile;
+                int rownum = perfectArray.GetUpperBound(0) + 1;
+                StreamWriter outputFile;
+                outputFile = File.AppendText(saveFile);
+                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
+                for (int i = 0; i < rownum; i++)
+                {
+                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
+                }
+                outputFile.Close();
+            }
+                   
         }
+        
+
+
+
+
         //|||||||||||||||||||||||||||||||
         //||||---GENERATE REPORT---||||||
         //|||||||||||||||||||||||||||||||

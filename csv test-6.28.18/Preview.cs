@@ -35,7 +35,7 @@ namespace csv_test_6._28._18
             displayData.NameFile = ContactPath;
             if (FileType.Equals("Word"))
             {
-                string[] copyHeader = displayData.TableHeader();
+                string[] copyHeader = displayData.WordTableHeader();
                 string[,] displayArray = displayData.WordDoc();
                 dataTable = new DataTable();
                 for (int i = 0; i < copyHeader.Length; i++)
@@ -118,8 +118,6 @@ namespace csv_test_6._28._18
                             dataTable.Columns.Add(column.ColumnName, typeof(String));
                         }
                     }
-
-
                     foreach (DataRow dr in dt.Rows)
                     {
                         DataRow row = dataTable.NewRow();
@@ -133,7 +131,6 @@ namespace csv_test_6._28._18
                         }
                         dataTable.Rows.Add(row);
                     }
-
                     foreach (DataColumn column in dataTable.Columns)
                     {
                         headers.Add(column.ColumnName);
@@ -144,7 +141,6 @@ namespace csv_test_6._28._18
                     dataTable = dt;
                     headers = initialHeaders;
                 }
-
             }
             dataGridView.DataSource = dataTable;
         } //end of Preview Class
