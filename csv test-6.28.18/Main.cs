@@ -23,6 +23,7 @@ namespace csv_test_6._28._18
             InitializeComponent();
         }
 
+        public DataTable dataTable;
         StreamReader streamer;
         string contactpath = string.Empty;
         string reportpath = string.Empty;
@@ -65,6 +66,11 @@ namespace csv_test_6._28._18
                 DialogResult result = openFile.ShowDialog();
                 if (result == DialogResult.OK)
                 {
+                    //set fileType as Word and then create the Data Table that will be displayed in the preview window and store the Data Table into the class variable dataTable
+                    fileType = "Word";
+                    contactpath = openFile.FileName;
+                    dataTable = wordDocToDataTable(contactpath);
+
                     btnPreview.Visible = true;
                     btnPreview2.Visible = false;
                     btnInsightCSV.Enabled = true;
@@ -86,8 +92,6 @@ namespace csv_test_6._28._18
                     lblPullContacts.Visible = true;
                     lblPullContacts.ForeColor = System.Drawing.Color.Lime;
                     lblPullContacts.Text = "Success extracting data";
-                    contactpath = openFile.FileName;
-                    fileType = "Word";
                 }
 
             }
@@ -130,6 +134,11 @@ namespace csv_test_6._28._18
                 DialogResult result = openFile.ShowDialog();
                 if (result == DialogResult.OK)
                 {
+                    //set fileType as Excel and then create the Data Table that will be displayed in the preview window and store the Data Table into the class variable dataTable
+                    fileType = "Excel";
+                    contactpath = openFile.FileName;
+                    dataTable = excelSheetToDataTable(contactpath);
+
                     btnPreview2.Visible = true;
                     btnPreview.Visible = false;
                     btnInsightCSV.Enabled = true;
@@ -150,9 +159,7 @@ namespace csv_test_6._28._18
                     lblPullContacts.Top = 68;
                     lblPullContacts.Visible = true;
                     lblPullContacts.ForeColor = System.Drawing.Color.Lime;
-                    lblPullContacts.Text = "Success extracting data";
-                    fileType = "Excel";
-                    contactpath = openFile.FileName;                    
+                    lblPullContacts.Text = "Success extracting data";                   
                 }
 
             }
@@ -183,14 +190,125 @@ namespace csv_test_6._28._18
             }
         }
 
+        private DataTable wordDocToDataTable(string filePath)
+        {
+            Read displayData = new Read();
+            displayData.NameFile = filePath;
+            string[] copyHeader = displayData.WordTableHeader();
+            string[,] displayArray = displayData.WordDoc();
+            DataTable result = new DataTable();
+            for (int i = 0; i < copyHeader.Length; i++)
+            {
+                result.Columns.Add(copyHeader[i], typeof(String));
+            }
+
+
+            for (int i = 0; i < (displayArray.Length / copyHeader.Length); i++)
+            {
+                DataRow row = result.NewRow();
+                for (int j = 0; j < copyHeader.Length; j++)
+                {
+                    row[copyHeader[j]] = displayArray[i, j];
+                }
+                result.Rows.Add(row);
+            }
+            return result;
+        }
+
+        private DataTable excelSheetToDataTable(string filePath)
+        {
+            var file = new FileInfo(filePath);
+            IExcelDataReader reader;
+            FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            if (file.Extension.Equals(".xls"))
+                reader = ExcelReaderFactory.CreateBinaryReader(fs);
+            else if (file.Extension.Equals(".xlsx"))
+                reader = ExcelReaderFactory.CreateOpenXmlReader(fs);
+            else if (file.Extension.Equals(".csv"))
+                reader = ExcelReaderFactory.CreateCsvReader(fs);
+            else
+                throw new Exception("Invalid FileName");
+
+            var conf = new ExcelDataSetConfiguration
+            {
+                ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                {
+                    UseHeaderRow = true
+                }
+            };
+
+            var dataSet = reader.AsDataSet(conf);
+            var dt = dataSet.Tables[0];
+            reader.Close();
+
+            List<string> initialHeaders = new List<string>();
+            foreach (DataColumn column in dt.Columns)
+            {
+                initialHeaders.Add(column.ColumnName);
+            }
+            int firstNameColumn = -1;
+            int lastNameColumn = -1;
+            string firstNameColumnName = null;
+            string lastNameColumnName = null;
+            for (int i = 0; i < initialHeaders.Count; i++)
+            {
+                if (initialHeaders[i].ToLower().Contains("first"))
+                {
+                    firstNameColumn = i;
+                    firstNameColumnName = initialHeaders[i];
+                }
+                else if (initialHeaders[i].ToLower().Contains("last"))
+                {
+                    lastNameColumn = i;
+                    lastNameColumnName = initialHeaders[i];
+                }
+            }
+
+            DataTable result = new DataTable();
+            List<String> headers = new List<String>();
+            if (firstNameColumn != -1 & lastNameColumn != -1)
+            {
+                result.Columns.Add("Name", typeof(String));
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (!column.ColumnName.Equals(firstNameColumnName) & !column.ColumnName.Equals(lastNameColumnName))
+                    {
+                        result.Columns.Add(column.ColumnName, typeof(String));
+                    }
+                }
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DataRow row = result.NewRow();
+                    row["Name"] = dr[firstNameColumnName].ToString() + " " + dr[lastNameColumnName];
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        if (!column.ColumnName.Equals(firstNameColumnName) & !column.ColumnName.Equals(lastNameColumnName))
+                        {
+                            row[column.ColumnName] = dr[column.ColumnName];
+                        }
+                    }
+                    result.Rows.Add(row);
+                }
+                foreach (DataColumn column in result.Columns)
+                {
+                    headers.Add(column.ColumnName);
+                }
+            }
+            else
+            {
+                result = dt;
+                headers = initialHeaders;
+            }
+            return result;
+        }
+
         private void btnPreview_Click(object sender, EventArgs e)
         {
             ToolTip toolPreview = new ToolTip();
             toolPreview.ShowAlways = false;
             toolPreview.SetToolTip(btnPreview, "Preview Extracted Data");
             Preview newpreview = new Preview();
-            newpreview.ContactPath = contactpath;
-            newpreview.FileType = fileType;
+            newpreview.dataTable = dataTable;
             newpreview.ShowDialog();
         }
 
@@ -200,8 +318,7 @@ namespace csv_test_6._28._18
             toolPreview.ShowAlways = false;
             toolPreview.SetToolTip(btnPreview, "Preview Extracted Data");
             Preview newpreview = new Preview();
-            newpreview.ContactPath = contactpath;
-            newpreview.FileType = fileType;
+            newpreview.dataTable = dataTable;
             newpreview.ShowDialog();
         }
 // ****************************************************************************************************************************************************************************************************
