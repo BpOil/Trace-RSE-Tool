@@ -59,11 +59,11 @@
             this.panelHead = new System.Windows.Forms.Panel();
             this.btnPreview2 = new System.Windows.Forms.Button();
             this.btnOpenExcelFile = new System.Windows.Forms.Button();
+            this.imagesLarge = new System.Windows.Forms.ImageList(this.components);
             this.btnPreview = new System.Windows.Forms.Button();
             this.lblPullContacts = new System.Windows.Forms.Label();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
-            this.imagesLarge = new System.Windows.Forms.ImageList(this.components);
             this.tabMAIN.SuspendLayout();
             this.tabEmail.SuspendLayout();
             this.tabPhone.SuspendLayout();
@@ -493,6 +493,16 @@
             this.btnOpenExcelFile.UseVisualStyleBackColor = true;
             this.btnOpenExcelFile.Click += new System.EventHandler(this.btnOpenExcelFile_Click);
             // 
+            // imagesLarge
+            // 
+            this.imagesLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesLarge.ImageStream")));
+            this.imagesLarge.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesLarge.Images.SetKeyName(0, "microsoft-word-512.gif");
+            this.imagesLarge.Images.SetKeyName(1, "excel-3-512.gif");
+            this.imagesLarge.Images.SetKeyName(2, "envelope-closed-512.ico");
+            this.imagesLarge.Images.SetKeyName(3, "document-2-512.ico");
+            this.imagesLarge.Images.SetKeyName(4, "phone-70-512.gif");
+            // 
             // btnPreview
             // 
             this.btnPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
@@ -542,16 +552,6 @@
             // toolTips
             // 
             this.toolTips.ToolTipTitle = "Email Tools";
-            // 
-            // imagesLarge
-            // 
-            this.imagesLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesLarge.ImageStream")));
-            this.imagesLarge.TransparentColor = System.Drawing.Color.Transparent;
-            this.imagesLarge.Images.SetKeyName(0, "microsoft-word-512.gif");
-            this.imagesLarge.Images.SetKeyName(1, "excel-3-512.gif");
-            this.imagesLarge.Images.SetKeyName(2, "envelope-closed-512.ico");
-            this.imagesLarge.Images.SetKeyName(3, "document-2-512.ico");
-            this.imagesLarge.Images.SetKeyName(4, "phone-70-512.gif");
             // 
             // Main
             // 
