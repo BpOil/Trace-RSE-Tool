@@ -79,10 +79,10 @@ namespace csv_test_6._28._18
                 int rownum = perfectArray.GetUpperBound(0) + 1;
                 StreamWriter outputFile;
                 outputFile = File.AppendText(saveFile);
-                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
+                outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
                 for (int i = 0; i < rownum; i++)
                 {
-                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
+                    outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
                 }
                 outputFile.Close();
             }
@@ -92,10 +92,10 @@ namespace csv_test_6._28._18
                 int rownum = perfectArray.GetUpperBound(0) + 1;
                 StreamWriter outputFile;
                 outputFile = File.AppendText(saveFile);
-                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
+                outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6}", "firstName", "middleName", "lastName", "title", "phone", "email", "userGroups");
                 for (int i = 0; i < rownum; i++)
                 {
-                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
+                    outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6]);
                 }
                 outputFile.Close();
             }
@@ -110,10 +110,10 @@ namespace csv_test_6._28._18
                 int rownum = perfectArray.GetUpperBound(0) + 1;
                 StreamWriter outputFile;
                 outputFile = File.AppendText(saveFile);
-                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
+                outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
                 for (int i = 0; i < rownum; i++)
                 {
-                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
+                    outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
                 }
                 outputFile.Close();
             }
@@ -125,10 +125,10 @@ namespace csv_test_6._28._18
                 int rownum = perfectArray.GetUpperBound(0) + 1;
                 StreamWriter outputFile;
                 outputFile = File.AppendText(saveFile);
-                outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
+                outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", "Email", "First Name", "Last Name", "Phone Number", "Extension", "Group", "Location", "Division", "Manager Name", "Manager Email", "Employee Number", "Job Title", "Password", "Mobile", "AD Managed");
                 for (int i = 0; i < rownum; i++)
                 {
-                    outputFile.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
+                    outputFile.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", perfectArray[i, 0], perfectArray[i, 1], perfectArray[i, 2], perfectArray[i, 3], perfectArray[i, 4], perfectArray[i, 5], perfectArray[i, 6], perfectArray[i, 7], perfectArray[i, 8], perfectArray[i, 9], perfectArray[i, 10], perfectArray[i, 11], perfectArray[i, 12], perfectArray[i, 13], perfectArray[i, 14]);
                 }
                 outputFile.Close();
             }

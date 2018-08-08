@@ -466,7 +466,7 @@
             this.btnPreview2.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnPreview2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreview2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.btnPreview2.Location = new System.Drawing.Point(249, 12);
+            this.btnPreview2.Location = new System.Drawing.Point(238, 12);
             this.btnPreview2.Margin = new System.Windows.Forms.Padding(1);
             this.btnPreview2.Name = "btnPreview2";
             this.btnPreview2.Size = new System.Drawing.Size(27, 22);
@@ -484,7 +484,8 @@
             this.btnOpenExcelFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOpenExcelFile.ImageIndex = 1;
             this.btnOpenExcelFile.ImageList = this.imagesLarge;
-            this.btnOpenExcelFile.Location = new System.Drawing.Point(282, 12);
+            this.btnOpenExcelFile.Location = new System.Drawing.Point(269, 12);
+            this.btnOpenExcelFile.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.btnOpenExcelFile.Name = "btnOpenExcelFile";
             this.btnOpenExcelFile.Size = new System.Drawing.Size(104, 55);
             this.btnOpenExcelFile.TabIndex = 2;
@@ -540,7 +541,8 @@
             this.btnOpenFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOpenFile.ImageIndex = 0;
             this.btnOpenFile.ImageList = this.imagesLarge;
-            this.btnOpenFile.Location = new System.Drawing.Point(24, 12);
+            this.btnOpenFile.Location = new System.Drawing.Point(20, 12);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(104, 55);
             this.btnOpenFile.TabIndex = 0;
