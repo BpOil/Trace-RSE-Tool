@@ -287,7 +287,7 @@
             // 
             this.tabPhone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
             this.tabPhone.Controls.Add(this.btnCreateCallList);
-            this.tabPhone.ImageIndex = 8;
+            this.tabPhone.ImageIndex = 1;
             this.tabPhone.Location = new System.Drawing.Point(4, 44);
             this.tabPhone.Name = "tabPhone";
             this.tabPhone.Padding = new System.Windows.Forms.Padding(3);
@@ -435,14 +435,8 @@
             this.imagesMedium.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesMedium.ImageStream")));
             this.imagesMedium.TransparentColor = System.Drawing.Color.Transparent;
             this.imagesMedium.Images.SetKeyName(0, "text-file-6-512.ico");
-            this.imagesMedium.Images.SetKeyName(1, "phone-18-256.ico");
+            this.imagesMedium.Images.SetKeyName(1, "phone-2-512.ico");
             this.imagesMedium.Images.SetKeyName(2, "envelope-open-512.ico");
-            this.imagesMedium.Images.SetKeyName(3, "visible-512.ico");
-            this.imagesMedium.Images.SetKeyName(4, "microsoft-word-512.ico");
-            this.imagesMedium.Images.SetKeyName(5, "csv-256.gif");
-            this.imagesMedium.Images.SetKeyName(6, "arrow-53-256.gif");
-            this.imagesMedium.Images.SetKeyName(7, "excel-3-512.ico");
-            this.imagesMedium.Images.SetKeyName(8, "phone-2-512.ico");
             // 
             // panelHead
             // 
@@ -500,9 +494,6 @@
             this.imagesLarge.TransparentColor = System.Drawing.Color.Transparent;
             this.imagesLarge.Images.SetKeyName(0, "microsoft-word-512.gif");
             this.imagesLarge.Images.SetKeyName(1, "excel-3-512.gif");
-            this.imagesLarge.Images.SetKeyName(2, "envelope-closed-512.ico");
-            this.imagesLarge.Images.SetKeyName(3, "document-2-512.ico");
-            this.imagesLarge.Images.SetKeyName(4, "phone-70-512.gif");
             // 
             // btnPreview
             // 
