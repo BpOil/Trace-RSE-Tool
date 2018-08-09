@@ -188,6 +188,7 @@ namespace csv_test_6._28._18
             }
         }
 
+        //converts a Word Document Scoping form into a Data Table
         private DataTable wordDocToDataTable(string filePath)
         {
             Read displayData = new Read();
@@ -199,7 +200,6 @@ namespace csv_test_6._28._18
             {
                 result.Columns.Add(copyHeader[i], typeof(String));
             }
-
 
             for (int i = 0; i < (displayArray.Length / copyHeader.Length); i++)
             {
@@ -213,6 +213,7 @@ namespace csv_test_6._28._18
             return result;
         }
 
+        //converts a Excel Workbook Scoping form into a Data Table
         private DataTable excelSheetToDataTable(string filePath)
         {
             var file = new FileInfo(filePath);
@@ -941,10 +942,21 @@ namespace csv_test_6._28._18
             //}
         }
 
+
+        // ####################################################################################################################################################################################################
+        // ####################################################################################################################################################################################################
+        // ###########################                                                                                                                                              ###########################
+        // ###########################                                                            PHONE CALL TAB                                                                    ###########################
+        // ###########################                                                                                                                                              ###########################
+        // ####################################################################################################################################################################################################
+        // ####################################################################################################################################################################################################
+
         //method that will create a new Excel Sheet that will be used when making calls to clients 
         private void btnCreateCallList_Click(object sender, EventArgs e)
         {
-
+            NewCallList callList = new NewCallList();
+            callList.dataTable = dataTable;
+            callList.ShowDialog();
         }
     }
 }
