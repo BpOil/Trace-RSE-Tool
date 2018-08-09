@@ -203,7 +203,6 @@ namespace csv_test_6._28._18
                 result.Columns.Add(copyHeader[i], typeof(String));
             }
 
-
             for (int i = 0; i < (displayArray.Length / copyHeader.Length); i++)
             {
                 DataRow row = result.NewRow();

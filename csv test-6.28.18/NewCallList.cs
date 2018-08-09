@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace csv_test_6._28._18
 {
@@ -16,6 +17,7 @@ namespace csv_test_6._28._18
 
         public DataTable dataTable { get; set; }
         public List<String> headers = new List<String>();
+        public string fileName;
 
         private int hasName;
         private int hasPhone;
@@ -239,8 +241,17 @@ namespace csv_test_6._28._18
                     xlWorkSheet.Cells[i + 5, j + 1] = newDataTable.Rows[i][j].ToString();
                 }
             }
-            //CHANGE THIS TO A SAVE AS WINDOW SO USER CAN SAVE THE FILE WHERE THEY WANT TO
-            xlWorkBook.SaveAs(@"C:\Users\bmartin\Documents\TraceSecurity\RSE\Pacific National Bank\test");
+            
+            SaveFileDialog fileStream = new SaveFileDialog();
+            fileStream.FileName = "call-list.xlsx";
+            fileStream.DefaultExt = ".xlsx";
+            fileStream.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";            
+            DialogResult result = fileStream.ShowDialog();            
+            if (result == DialogResult.OK)
+            {
+                fileName = fileStream.FileName;
+                xlWorkBook.SaveAs(fileName);
+            }            
             xlWorkBook.Close();
         }
     }
