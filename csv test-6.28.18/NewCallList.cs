@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using ExcelDataReader;
 
 namespace csv_test_6._28._18
 {
@@ -18,6 +19,8 @@ namespace csv_test_6._28._18
         public DataTable dataTable { get; set; }
         public List<String> headers = new List<String>();
         public string fileName;
+        private Excel.Workbook xlWorkBook;
+        private Excel.Worksheet xlWorkSheet;
 
         private int hasName;
         private int hasPhone;
@@ -120,14 +123,55 @@ namespace csv_test_6._28._18
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            companyName = txtBxCompanyName.Text;
+            if (!string.IsNullOrWhiteSpace(txtBxCompanyName.Text))
+            {
+                companyName = txtBxCompanyName.Text;
+            }
+            else
+            {
+                MessageBox.Show("Please Enter Company Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBxCompanyName.Clear();
+                txtBxCompanyName.Focus();
+                return;
+            }
             nameDrop = txtBxNameDrop.Text;
-            engagementsNeeded = txtBxEngagementsNeeded.Text;
+            if (!string.IsNullOrWhiteSpace(txtBxEngagementsNeeded.Text))
+            {
+                engagementsNeeded = txtBxEngagementsNeeded.Text;
+            }
+            else
+            {
+                MessageBox.Show("Please Enter the Number of Engagements Needed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBxEngagementsNeeded.Clear();
+                txtBxEngagementsNeeded.Focus();
+                return;
+            }
             engagementsPerDay = txtBxEngagementsPerDay.Text;
             businessHours = txtBxHours.Text;
             timeZone = txtBxTimeZone.Text;
-            callingAs = txtBxCallingAs.Text;
-            phoneNumberDisplayed = txtBxNumberDisplayed.Text;
+            if (!string.IsNullOrWhiteSpace(txtBxCallingAs.Text))
+            {
+                callingAs = txtBxCallingAs.Text;
+            }
+            else
+            {
+                MessageBox.Show("Please Enter the Company you are Calling As.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBxCallingAs.Clear();
+                txtBxCallingAs.Focus();
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(txtBxNumberDisplayed.Text))
+            {
+                phoneNumberDisplayed = txtBxNumberDisplayed.Text;
+            }
+            else
+            {
+                MessageBox.Show("Please Enter the Phone Number you want Displayed when Making Calls.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBxCallingAs.Clear();
+                txtBxCallingAs.Focus();
+                return;
+            }
+
 
             //create new headers
             List<String[]> newHeaders = new List<String[]>();
@@ -206,8 +250,6 @@ namespace csv_test_6._28._18
                 return;
             }
 
-            Excel.Workbook xlWorkBook;
-            Excel.Worksheet xlWorkSheet;
             object misValue = System.Reflection.Missing.Value;
 
             xlWorkBook = xlApp.Workbooks.Add(misValue);
@@ -215,7 +257,7 @@ namespace csv_test_6._28._18
 
             //headers
             xlWorkSheet.Cells[1, 1] = "Calling As";
-            xlWorkSheet.Cells[1, 2] = "Phone Number Displayed";
+            xlWorkSheet.Cells[1, 2] = "Phone # Displayed";
             xlWorkSheet.Cells[1, 3] = "Name Drop";
             xlWorkSheet.Cells[1, 4] = "Engagements Needed";
             xlWorkSheet.Cells[1, 5] = "Engagements per Day";
@@ -226,7 +268,7 @@ namespace csv_test_6._28._18
             xlWorkSheet.Cells[2, 3] = nameDrop;
             xlWorkSheet.Cells[2, 4] = engagementsNeeded;
             xlWorkSheet.Cells[2, 5] = engagementsPerDay;
-            xlWorkSheet.Cells[2, 6] = "add array function here to keep track of engagements";
+            xlWorkSheet.Cells[2, 6] = "waiting for calls...";
             xlWorkSheet.Cells[2, 7] = businessHours + " " + timeZone;
 
             //employee call list
@@ -241,18 +283,23 @@ namespace csv_test_6._28._18
                     xlWorkSheet.Cells[i + 5, j + 1] = newDataTable.Rows[i][j].ToString();
                 }
             }
-            
+
+            //reformat column size to display all the data cleanly
+            xlWorkSheet.Columns.AutoFit();
+
+            int currentYear = DateTime.Now.Year;
             SaveFileDialog fileStream = new SaveFileDialog();
-            fileStream.FileName = "call-list.xlsx";
+            fileStream.FileName = companyName.Trim() + " " + currentYear + " RSE Call List.xlsx";
             fileStream.DefaultExt = ".xlsx";
-            fileStream.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";            
-            DialogResult result = fileStream.ShowDialog();            
+            fileStream.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            DialogResult result = fileStream.ShowDialog();
             if (result == DialogResult.OK)
             {
                 fileName = fileStream.FileName;
                 xlWorkBook.SaveAs(fileName);
-            }            
+            }
             xlWorkBook.Close();
+            xlApp.Quit();
         }
     }
 }

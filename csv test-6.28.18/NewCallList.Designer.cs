@@ -146,14 +146,14 @@
             this.txtBxNumberDisplayed.Location = new System.Drawing.Point(474, 108);
             this.txtBxNumberDisplayed.Name = "txtBxNumberDisplayed";
             this.txtBxNumberDisplayed.Size = new System.Drawing.Size(100, 20);
-            this.txtBxNumberDisplayed.TabIndex = 11;
+            this.txtBxNumberDisplayed.TabIndex = 12;
             // 
             // txtBxCallingAs
             // 
             this.txtBxCallingAs.Location = new System.Drawing.Point(474, 82);
             this.txtBxCallingAs.Name = "txtBxCallingAs";
             this.txtBxCallingAs.Size = new System.Drawing.Size(100, 20);
-            this.txtBxCallingAs.TabIndex = 12;
+            this.txtBxCallingAs.TabIndex = 11;
             // 
             // label6
             // 
@@ -185,6 +185,9 @@
             // CkBxName
             // 
             this.CkBxName.AutoSize = true;
+            this.CkBxName.Checked = true;
+            this.CkBxName.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkBxName.Enabled = false;
             this.CkBxName.Location = new System.Drawing.Point(33, 186);
             this.CkBxName.Name = "CkBxName";
             this.CkBxName.Size = new System.Drawing.Size(54, 17);
@@ -195,6 +198,9 @@
             // ckBxPhone
             // 
             this.ckBxPhone.AutoSize = true;
+            this.ckBxPhone.Checked = true;
+            this.ckBxPhone.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckBxPhone.Enabled = false;
             this.ckBxPhone.Location = new System.Drawing.Point(33, 210);
             this.ckBxPhone.Name = "ckBxPhone";
             this.ckBxPhone.Size = new System.Drawing.Size(97, 17);
@@ -257,7 +263,7 @@
             this.btnSubmit.Location = new System.Drawing.Point(532, 326);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
-            this.btnSubmit.TabIndex = 23;
+            this.btnSubmit.TabIndex = 24;
             this.btnSubmit.Text = "Submit";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);

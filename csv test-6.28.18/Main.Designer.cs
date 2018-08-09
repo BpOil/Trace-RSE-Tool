@@ -64,6 +64,7 @@
             this.lblPullContacts = new System.Windows.Forms.Label();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.btnMakeCalls = new System.Windows.Forms.Button();
             this.tabMAIN.SuspendLayout();
             this.tabEmail.SuspendLayout();
             this.tabPhone.SuspendLayout();
@@ -286,6 +287,7 @@
             // tabPhone
             // 
             this.tabPhone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.tabPhone.Controls.Add(this.btnMakeCalls);
             this.tabPhone.Controls.Add(this.btnCreateCallList);
             this.tabPhone.ImageIndex = 8;
             this.tabPhone.Location = new System.Drawing.Point(4, 44);
@@ -307,7 +309,7 @@
             this.btnCreateCallList.ForeColor = System.Drawing.Color.LightGray;
             this.btnCreateCallList.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreateCallList.ImageIndex = 7;
-            this.btnCreateCallList.Location = new System.Drawing.Point(20, 42);
+            this.btnCreateCallList.Location = new System.Drawing.Point(62, 42);
             this.btnCreateCallList.Name = "btnCreateCallList";
             this.btnCreateCallList.Size = new System.Drawing.Size(93, 44);
             this.btnCreateCallList.TabIndex = 4;
@@ -555,6 +557,23 @@
             // 
             this.toolTips.ToolTipTitle = "Email Tools";
             // 
+            // btnMakeCalls
+            // 
+            this.btnMakeCalls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.btnMakeCalls.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnMakeCalls.FlatAppearance.BorderSize = 2;
+            this.btnMakeCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeCalls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakeCalls.ForeColor = System.Drawing.Color.White;
+            this.btnMakeCalls.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnMakeCalls.ImageIndex = 7;
+            this.btnMakeCalls.Location = new System.Drawing.Point(234, 42);
+            this.btnMakeCalls.Name = "btnMakeCalls";
+            this.btnMakeCalls.Size = new System.Drawing.Size(93, 44);
+            this.btnMakeCalls.TabIndex = 5;
+            this.btnMakeCalls.Text = "Make Calls";
+            this.btnMakeCalls.UseVisualStyleBackColor = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,6 +635,7 @@
         private System.Windows.Forms.Button btnPreview2;
         private System.Windows.Forms.Button btnCreateCallList;
         private System.Windows.Forms.ImageList imagesLarge;
+        private System.Windows.Forms.Button btnMakeCalls;
     }
 }
 
