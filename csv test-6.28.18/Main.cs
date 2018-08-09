@@ -36,7 +36,7 @@ namespace csv_test_6._28._18
 
         }
 
-       
+
 
         // **METHOD THAT OPENS FILE EXPLORER AND FOCUSES THE NEWLY SAVED ITEM BY THE USER
         private void OpenFolder(string folderPath)
@@ -130,7 +130,7 @@ namespace csv_test_6._28._18
             toolOpenFile.SetToolTip(btnOpenExcelFile, "Open Excel Sheet");
             try
             {
-                OpenFileDialog openFile = new OpenFileDialog() { Filter = "Excel Workbook|*.xls;*.xlsx;*.csv", ValidateNames = true };                
+                OpenFileDialog openFile = new OpenFileDialog() { Filter = "Excel Workbook|*.xls;*.xlsx;*.csv", ValidateNames = true };
                 DialogResult result = openFile.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -159,7 +159,7 @@ namespace csv_test_6._28._18
                     lblPullContacts.Top = 68;
                     lblPullContacts.Visible = true;
                     lblPullContacts.ForeColor = System.Drawing.Color.Lime;
-                    lblPullContacts.Text = "Success extracting data";                   
+                    lblPullContacts.Text = "Success extracting data";
                 }
 
             }
@@ -195,22 +195,77 @@ namespace csv_test_6._28._18
         {
             Read displayData = new Read();
             displayData.NameFile = filePath;
+            //get headers
             string[] copyHeader = displayData.WordTableHeader();
+            //get table data 
             string[,] displayArray = displayData.WordDoc();
-            DataTable result = new DataTable();
+
+            //see if First Name and Last Name are in seperate columns
+            int firstNameColumn = -1;
+            int lastNameColumn = -1;
+            string firstNameColumnName = null;
+            string lastNameColumnName = null;
             for (int i = 0; i < copyHeader.Length; i++)
             {
-                result.Columns.Add(copyHeader[i], typeof(String));
+                if (copyHeader[i].ToLower().Contains("first"))
+                {
+                    firstNameColumn = i;
+                    firstNameColumnName = copyHeader[i];
+                }
+                else if (copyHeader[i].ToLower().Contains("last"))
+                {
+                    lastNameColumn = i;
+                    lastNameColumnName = copyHeader[i];
+                }
             }
 
-            for (int i = 0; i < (displayArray.Length / copyHeader.Length); i++)
-            {
-                DataRow row = result.NewRow();
-                for (int j = 0; j < copyHeader.Length; j++)
+
+            DataTable result = new DataTable();
+            //create DataTable
+            if (firstNameColumn != -1 & lastNameColumn != -1)
+            { //create DataTable if First Name and Last Name are in SEPERATE columns
+                //add headers to the columns in the DataTable
+                result.Columns.Add("Name", typeof(String));
+                for (int i = 0; i < copyHeader.Length; i++)
                 {
-                    row[copyHeader[j]] = displayArray[i, j];
+                    if (!copyHeader[i].Equals(firstNameColumnName) & !copyHeader[i].Equals(lastNameColumnName))
+                    {
+                        result.Columns.Add(copyHeader[i], typeof(String));
+                    }
                 }
-                result.Rows.Add(row);
+                //add employee info to the DataTable
+                for (int i = 0; i < (displayArray.Length / copyHeader.Length); i++)
+                {
+                    DataRow row = result.NewRow();
+                    row["Name"] = displayArray[i, firstNameColumn] + " " + displayArray[i, lastNameColumn];
+                    for (int j = 0; j < copyHeader.Length; j++)
+                    {
+                        if (!copyHeader[j].Equals(firstNameColumnName) & !copyHeader[j].Equals(lastNameColumnName))
+                        {
+                            row[copyHeader[j]] = displayArray[i, j];
+                        }
+                    }
+                    result.Rows.Add(row);
+                }
+
+            }
+            else
+            { //create DataTable if First Name and Last Name are in the SAME column
+                //add headers to the columns in the DataTable
+                for (int i = 0; i < copyHeader.Length; i++)
+                {
+                    result.Columns.Add(copyHeader[i], typeof(String));
+                }
+                //add employee info to the DataTable
+                for (int i = 0; i < (displayArray.Length / copyHeader.Length); i++)
+                {
+                    DataRow row = result.NewRow();
+                    for (int j = 0; j < copyHeader.Length; j++)
+                    {
+                        row[copyHeader[j]] = displayArray[i, j];
+                    }
+                    result.Rows.Add(row);
+                }
             }
             return result;
         }
@@ -268,7 +323,7 @@ namespace csv_test_6._28._18
             DataTable result = new DataTable();
             List<String> headers = new List<String>();
             if (firstNameColumn != -1 & lastNameColumn != -1)
-            {
+            { //create DataTable if First Name and Last Name are in SEPERATE columns
                 result.Columns.Add("Name", typeof(String));
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -296,7 +351,7 @@ namespace csv_test_6._28._18
                 }
             }
             else
-            {
+            { //create DataTable if First Name and Last Name are in the SAME column
                 result = dt;
                 headers = initialHeaders;
             }
@@ -322,13 +377,13 @@ namespace csv_test_6._28._18
             newpreview.dataTable = dataTable;
             newpreview.ShowDialog();
         }
-// ****************************************************************************************************************************************************************************************************
-// ****************************************************************************************************************************************************************************************************
-// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
-// ********-----------------------------------------------------------------C R E A T E   C S V   F I L E   S T U F F--------------------------------------------------------------------------********
-// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
-// ****************************************************************************************************************************************************************************************************
-// ****************************************************************************************************************************************************************************************************
+        // ****************************************************************************************************************************************************************************************************
+        // ****************************************************************************************************************************************************************************************************
+        // ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+        // ********-----------------------------------------------------------------C R E A T E   C S V   F I L E   S T U F F--------------------------------------------------------------------------********
+        // ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+        // ****************************************************************************************************************************************************************************************************
+        // ****************************************************************************************************************************************************************************************************
 
         private void btnInsightCSV_Click(object sender, EventArgs e)
         {
@@ -594,7 +649,7 @@ namespace csv_test_6._28._18
                 //    MessageBox.Show("Unable to export data to file properly.");
                 //}
             }
-            
+
 
         }
         private void btnKnowbe4CSV_Click(object sender, EventArgs e)
@@ -834,13 +889,13 @@ namespace csv_test_6._28._18
             }
         }
 
-// ****************************************************************************************************************************************************************************************************
-// ****************************************************************************************************************************************************************************************************
-// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
-// ********------------------------------------------------------------------------P A Y L O A D   S T U F F-----------------------------------------------------------------------------------********
-// ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
-// ****************************************************************************************************************************************************************************************************
-// ****************************************************************************************************************************************************************************************************
+        // ****************************************************************************************************************************************************************************************************
+        // ****************************************************************************************************************************************************************************************************
+        // ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+        // ********------------------------------------------------------------------------P A Y L O A D   S T U F F-----------------------------------------------------------------------------------********
+        // ********------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------********
+        // ****************************************************************************************************************************************************************************************************
+        // ****************************************************************************************************************************************************************************************************
 
 
         private void btnCopyClipboard_Click(object sender, EventArgs e)
