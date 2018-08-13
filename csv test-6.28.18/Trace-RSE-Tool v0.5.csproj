@@ -7,7 +7,7 @@
     <ProjectGuid>{391BFD04-4A90-4EE3-8F0A-879F4DDA728A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Trace_RSE_Tool</RootNamespace>
-    <AssemblyName>Trace-RSE-Tool</AssemblyName>
+    <AssemblyName>Trace RSE Tool</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
