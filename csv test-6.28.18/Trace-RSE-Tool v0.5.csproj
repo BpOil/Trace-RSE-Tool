@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{391BFD04-4A90-4EE3-8F0A-879F4DDA728A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>csv_test_6._28._18</RootNamespace>
-    <AssemblyName>csv test-6.28.18</AssemblyName>
+    <RootNamespace>Trace_RSE_Tool</RootNamespace>
+    <AssemblyName>Trace-RSE-Tool</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TraceLogo1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -116,6 +119,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
@@ -174,6 +178,7 @@
     <Content Include="knowbe4payloads\You have a Google Drive File Shared.txt" />
     <Content Include="knowbe4payloads\Your Customer Has Sent An eFax message - 4 pages.txt" />
     <Content Include="knowbe4payloads\Your Payment is Past Due.txt" />
+    <Content Include="TraceLogo1.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
