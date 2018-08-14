@@ -64,6 +64,7 @@
             this.lblPullContacts = new System.Windows.Forms.Label();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.label5 = new System.Windows.Forms.Label();
             this.tabMAIN.SuspendLayout();
             this.tabEmail.SuspendLayout();
             this.tabPhone.SuspendLayout();
@@ -318,6 +319,7 @@
             // tabReport
             // 
             this.tabReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.tabReport.Controls.Add(this.label5);
             this.tabReport.Controls.Add(this.textBox1);
             this.tabReport.Controls.Add(this.txtClient);
             this.tabReport.Controls.Add(this.txtAnalyst);
@@ -335,27 +337,33 @@
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(116, 100);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 16;
+            this.textBox1.Visible = false;
             // 
             // txtClient
             // 
+            this.txtClient.Enabled = false;
             this.txtClient.Location = new System.Drawing.Point(116, 44);
             this.txtClient.Margin = new System.Windows.Forms.Padding(4);
             this.txtClient.Name = "txtClient";
             this.txtClient.Size = new System.Drawing.Size(100, 20);
             this.txtClient.TabIndex = 15;
+            this.txtClient.Visible = false;
             // 
             // txtAnalyst
             // 
+            this.txtAnalyst.Enabled = false;
             this.txtAnalyst.Location = new System.Drawing.Point(116, 72);
             this.txtAnalyst.Margin = new System.Windows.Forms.Padding(4);
             this.txtAnalyst.Name = "txtAnalyst";
             this.txtAnalyst.Size = new System.Drawing.Size(100, 20);
             this.txtAnalyst.TabIndex = 14;
+            this.txtAnalyst.Visible = false;
             // 
             // radBoth
             // 
@@ -371,6 +379,7 @@
             this.radBoth.TabStop = true;
             this.radBoth.Text = "Both";
             this.radBoth.UseVisualStyleBackColor = true;
+            this.radBoth.Visible = false;
             // 
             // radPhone
             // 
@@ -386,6 +395,7 @@
             this.radPhone.TabStop = true;
             this.radPhone.Text = "Phone";
             this.radPhone.UseVisualStyleBackColor = true;
+            this.radPhone.Visible = false;
             // 
             // radEmail
             // 
@@ -401,21 +411,25 @@
             this.radEmail.TabStop = true;
             this.radEmail.Text = "Email";
             this.radEmail.UseVisualStyleBackColor = true;
+            this.radEmail.Visible = false;
             // 
             // label2
             // 
+            this.label2.Enabled = false;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(141, 12);
+            this.label2.Location = new System.Drawing.Point(20, 124);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 17);
             this.label2.TabIndex = 9;
             this.label2.Text = "Report Shell";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Visible = false;
             // 
             // btnReportShell
             // 
             this.btnReportShell.BackColor = System.Drawing.Color.Gray;
+            this.btnReportShell.Enabled = false;
             this.btnReportShell.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
             this.btnReportShell.FlatAppearance.BorderSize = 2;
             this.btnReportShell.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -428,6 +442,7 @@
             this.btnReportShell.TabIndex = 8;
             this.btnReportShell.Text = "Save As";
             this.btnReportShell.UseVisualStyleBackColor = false;
+            this.btnReportShell.Visible = false;
             this.btnReportShell.Click += new System.EventHandler(this.btnReportShell_Click);
             // 
             // imagesMedium
@@ -546,6 +561,17 @@
             // 
             this.toolTips.ToolTipTitle = "Email Tools";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label5.Location = new System.Drawing.Point(141, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(100, 15);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Work in Progress";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -607,6 +633,7 @@
         private System.Windows.Forms.Button btnPreview2;
         private System.Windows.Forms.Button btnCreateCallList;
         private System.Windows.Forms.ImageList imagesLarge;
+        private System.Windows.Forms.Label label5;
     }
 }
 
