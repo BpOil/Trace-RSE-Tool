@@ -389,7 +389,7 @@
             this.spoofcardPinLabel.Name = "spoofcardPinLabel";
             this.spoofcardPinLabel.Size = new System.Drawing.Size(94, 18);
             this.spoofcardPinLabel.TabIndex = 0;
-            this.spoofcardPinLabel.Text = "0000";
+            this.spoofcardPinLabel.Text = "####";
             this.spoofcardPinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSpoofCard

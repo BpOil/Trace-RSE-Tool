@@ -265,8 +265,8 @@ namespace csv_test_6._28._18
             {
                 i++;
             }
-            if (dataTable.Rows[i]["Result"].Equals("PASSED") | dataTable.Rows[i]["Result"].Equals("FAILED") | string.IsNullOrWhiteSpace(dataTable.Rows[i]["Name"].ToString()))
-            { //if current row doesn't have a name, or has already had an engagement with the user then skip this row and go to the next row.
+            if (dataTable.Rows[i]["Result"].Equals("PASSED") | dataTable.Rows[i]["Result"].Equals("FAILED") | dataTable.Rows[i][DateTime.Now.ToShortDateString()].Equals("Voicemail") | string.IsNullOrWhiteSpace(dataTable.Rows[i]["Name"].ToString()))
+            { //if current row doesn't have a name, or has already had a pass/fail engagement with the user or has called them today then skip this row and go to the next row.
                 insertEmployeeInfo();
             }
             else
@@ -283,7 +283,7 @@ namespace csv_test_6._28._18
                 //wait for SpoofCard Pin WebPage to load
                 System.Threading.Thread.Sleep(2000);
                 //get the SpoofCard Pin
-                string spoofcardPin = "0000";
+                string spoofcardPin = "####";
                 try
                 {
                     spoofcardPin = driver.FindElement(By.XPath("//*[@id='myaccount-step2']/div/div[1]")).Text.Substring(36);
@@ -437,7 +437,7 @@ namespace csv_test_6._28._18
 
             var cellValue = "";
             //add missing Headers to Excel Sheet
-            for (int k = 4; k < dataTable.Columns.Count; k++)
+            for (int k = dataTable.Columns.IndexOf("Result"); k < dataTable.Columns.Count; k++)
             {
                 try
                 {
@@ -456,10 +456,10 @@ namespace csv_test_6._28._18
                 }
             }
 
-            //add missing data to the Excel Sheet
+            //add missing table data to the Excel Sheet
             for (int j = 0; j < dataTable.Rows.Count; j++)
             {
-                for (int k = 4; k < dataTable.Columns.Count; k++)
+                for (int k = dataTable.Columns.IndexOf("Result"); k < dataTable.Columns.Count; k++)
                 {
                     //get Excels current row's cell value
                     cellValue = (string)(ws.Cells[j + 10, k + 1] as Excel.Range).Value;

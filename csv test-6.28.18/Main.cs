@@ -137,7 +137,7 @@ namespace csv_test_6._28._18
                     //set fileType as Excel and then create the Data Table that will be displayed in the preview window and store the Data Table into the class variable dataTable
                     fileType = "Excel";
                     contactpath = openFile.FileName;
-                    dataTable = excelSheetToDataTable(contactpath);
+                    dataTable = excelSheetToDataTable(contactpath, true);
 
                     btnPreview2.Visible = true;
                     btnPreview.Visible = false;
@@ -145,6 +145,8 @@ namespace csv_test_6._28._18
                     btnKnowbe4CSV.Enabled = true;
                     txtUserGroup.Enabled = true;
                     btnCreateCallList.Enabled = true;
+                    radPhone.Enabled = true;
+                    btnReportShell.Enabled = true;
                     txtUserGroup.BackColor = System.Drawing.Color.White;
                     btnInsightCSV.BackColor = System.Drawing.Color.FromArgb(50, 60, 70);
                     btnInsightCSV.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(60, 184, 218);
@@ -271,7 +273,7 @@ namespace csv_test_6._28._18
         }
 
         //converts a Excel Workbook Scoping form into a Data Table
-        private DataTable excelSheetToDataTable(string filePath)
+        private DataTable excelSheetToDataTable(string filePath, bool useFirstRowAsHeaders)
         {
             var file = new FileInfo(filePath);
             IExcelDataReader reader;
@@ -289,7 +291,7 @@ namespace csv_test_6._28._18
             {
                 ConfigureDataTable = _ => new ExcelDataTableConfiguration
                 {
-                    UseHeaderRow = true
+                    UseHeaderRow = useFirstRowAsHeaders
                 }
             };
 
@@ -985,6 +987,24 @@ namespace csv_test_6._28._18
 
         private void btnReportShell_Click(object sender, EventArgs e)
         {
+            if (radPhone.Checked)
+            {
+                dataTable = excelSheetToDataTable(contactpath, false);
+                dataTable.Rows[0].Delete();
+                dataTable.Rows[1].Delete();
+                dataTable.Rows[2].Delete();
+                dataTable.Rows[3].Delete();
+                dataTable.Rows[4].Delete();
+                dataTable.Rows[5].Delete();
+                dataTable.Rows[6].Delete();
+                dataTable.Rows[7].Delete();
+                dataTable.AcceptChanges();
+
+                Preview preview = new Preview();
+                preview.dataTable = dataTable;
+                preview.ShowDialog();
+            }
+
             //try
             //{
             //    Read reading = new Read();
