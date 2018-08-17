@@ -1082,5 +1082,15 @@ namespace csv_test_6._28._18
             callList.dataTable = dataTable;
             callList.ShowDialog();            
         }
+
+        private void btnMakeCalls_Click(object sender, EventArgs e)
+        {
+            MakeCalls calls = new MakeCalls();
+            if (calls.failed == false)
+            {
+                calls.ShowDialog();
+                calls.driver.Quit();
+            }
+        }
     }
 }

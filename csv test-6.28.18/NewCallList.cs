@@ -42,6 +42,7 @@ namespace csv_test_6._28._18
         public NewCallList()
         {
             InitializeComponent();
+            saveDataLabel.Visible = false;
             hasName = -1;
             hasPhone = -1;
             hasExtension = -1;
@@ -129,11 +130,16 @@ namespace csv_test_6._28._18
             }
             else
             {
+                saveDataLabel.Visible = false;
                 MessageBox.Show("Please Enter Company Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBxCompanyName.Clear();
                 txtBxCompanyName.Focus();
                 return;
             }
+            int currentYear = DateTime.Now.Year;
+            string saveDataText = "Saving Data to \"" + companyName.Trim() + " RSE " + currentYear + " Call List.xlsx\"";
+            saveDataLabel.Text = saveDataText;
+            saveDataLabel.Visible = true;
             nameDrop = txtBxNameDrop.Text;
             if (!string.IsNullOrWhiteSpace(txtBxEngagementsNeeded.Text))
             {
@@ -141,6 +147,7 @@ namespace csv_test_6._28._18
             }
             else
             {
+                saveDataLabel.Visible = false;
                 MessageBox.Show("Please Enter the Number of Engagements Needed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBxEngagementsNeeded.Clear();
                 txtBxEngagementsNeeded.Focus();
@@ -155,6 +162,7 @@ namespace csv_test_6._28._18
             }
             else
             {
+                saveDataLabel.Visible = false;
                 MessageBox.Show("Please Enter the Company you are Calling As.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBxCallingAs.Clear();
                 txtBxCallingAs.Focus();
@@ -166,11 +174,13 @@ namespace csv_test_6._28._18
             }
             else
             {
+                saveDataLabel.Visible = false;
                 MessageBox.Show("Please Enter the Phone Number you want Displayed when Making Calls.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBxCallingAs.Clear();
                 txtBxCallingAs.Focus();
                 return;
             }
+            saveDataLabel.Text = saveDataText + ".";
 
 
             //create new headers
@@ -219,6 +229,7 @@ namespace csv_test_6._28._18
             {
                 newDataTable.Columns.Add(newHeaders[i][0]);
             }
+            saveDataLabel.Text = saveDataText + "..";
             //iterate through every row in the old DataTable to be inputted into the new DataTable
             foreach (DataRow row in dataTable.Rows)
             {
@@ -241,6 +252,7 @@ namespace csv_test_6._28._18
                 //add the new row to the new DataTable
                 newDataTable.Rows.Add(newRow);
             }
+            saveDataLabel.Text = saveDataText + "...";
 
             //create .xlsx file
             Excel.Application xlApp = new Excel.Application();
@@ -254,42 +266,47 @@ namespace csv_test_6._28._18
 
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets[1];
+            saveDataLabel.Text = saveDataText + "";
 
             //headers
             xlWorkSheet.Cells[1, 1] = "Calling As";
-            xlWorkSheet.Cells[1, 2] = "Phone # Displayed";
-            xlWorkSheet.Cells[1, 3] = "Name Drop";
-            xlWorkSheet.Cells[1, 4] = "Engagements Needed";
-            xlWorkSheet.Cells[1, 5] = "Engagements per Day";
-            xlWorkSheet.Cells[1, 6] = "Current Engagements";
-            xlWorkSheet.Cells[1, 7] = "Business Hours";
-            xlWorkSheet.Cells[2, 1] = callingAs;
+            xlWorkSheet.Cells[2, 1] = "Phone # Displayed";
+            xlWorkSheet.Cells[3, 1] = "Name Drop";
+            xlWorkSheet.Cells[4, 1] = "Engagements Needed";
+            xlWorkSheet.Cells[5, 1] = "Engagements per Day";
+            xlWorkSheet.Cells[6, 1] = "Current Engagements";
+            xlWorkSheet.Cells[7, 1] = "Business Hours";
+            xlWorkSheet.Cells[1, 2] = callingAs;
             xlWorkSheet.Cells[2, 2] = phoneNumberDisplayed;
-            xlWorkSheet.Cells[2, 3] = nameDrop;
-            xlWorkSheet.Cells[2, 4] = engagementsNeeded;
-            xlWorkSheet.Cells[2, 5] = engagementsPerDay;
-            xlWorkSheet.Cells[2, 6] = "waiting for calls...";
-            xlWorkSheet.Cells[2, 7] = businessHours + " " + timeZone;
+            xlWorkSheet.Cells[3, 2] = nameDrop;
+            xlWorkSheet.Cells[4, 2] = engagementsNeeded;
+            xlWorkSheet.Cells[5, 2] = engagementsPerDay;
+            xlWorkSheet.Cells[6, 2] = "waiting for calls...";
+            xlWorkSheet.Cells[7, 2] = businessHours + " " + timeZone;
 
             //employee call list
             for (int i = 0; i < newHeaders.Count; i++)
             {
-                xlWorkSheet.Cells[4, i + 1] = newHeaders[i][0];
+                xlWorkSheet.Cells[9, i + 1] = newHeaders[i][0];
             }
+            saveDataLabel.Text = saveDataText + ".";
             for (int i = 0; i < newDataTable.Rows.Count; i++)
             {
                 for (int j = 0; j < newDataTable.Columns.Count; j++)
                 {
-                    xlWorkSheet.Cells[i + 5, j + 1] = newDataTable.Rows[i][j].ToString();
+                    xlWorkSheet.Cells[i + 10, j + 1] = newDataTable.Rows[i][j].ToString();
                 }
             }
 
+            //add Final Result column into worksheet which will determine if Employee Passed, Failed, or Didn't Answer the Phone.
+            xlWorkSheet.Cells[9, newHeaders.Count + 1] = "Result";
+
             //reformat column size to display all the data cleanly
             xlWorkSheet.Columns.AutoFit();
+            saveDataLabel.Text = saveDataText + "..";
 
-            int currentYear = DateTime.Now.Year;
             SaveFileDialog fileStream = new SaveFileDialog();
-            fileStream.FileName = companyName.Trim() + " " + currentYear + " RSE Call List.xlsx";
+            fileStream.FileName = companyName.Trim() + " RSE " + currentYear + " Call List.xlsx";
             fileStream.DefaultExt = ".xlsx";
             fileStream.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
             DialogResult result = fileStream.ShowDialog();
@@ -298,8 +315,12 @@ namespace csv_test_6._28._18
                 fileName = fileStream.FileName;
                 xlWorkBook.SaveAs(fileName);
             }
+            saveDataLabel.Text = saveDataText + "...";
             xlWorkBook.Close();
             xlApp.Quit();
+            this.Close();
+            saveDataLabel.Text = saveDataText;
+            saveDataLabel.Visible = false;
         }
     }
 }

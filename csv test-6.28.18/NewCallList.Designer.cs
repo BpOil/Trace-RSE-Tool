@@ -52,6 +52,7 @@
             this.CkBxLocation = new System.Windows.Forms.CheckBox();
             this.CkBxDepartment = new System.Windows.Forms.CheckBox();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.saveDataLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -268,11 +269,23 @@
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
+            // saveDataLabel
+            // 
+            this.saveDataLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.saveDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveDataLabel.Location = new System.Drawing.Point(0, 0);
+            this.saveDataLabel.Name = "saveDataLabel";
+            this.saveDataLabel.Size = new System.Drawing.Size(629, 363);
+            this.saveDataLabel.TabIndex = 25;
+            this.saveDataLabel.Text = "label9";
+            this.saveDataLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // NewCallList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 363);
+            this.Controls.Add(this.saveDataLabel);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.CkBxDepartment);
             this.Controls.Add(this.CkBxLocation);
@@ -331,5 +344,6 @@
         private System.Windows.Forms.CheckBox CkBxLocation;
         private System.Windows.Forms.CheckBox CkBxDepartment;
         private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.Label saveDataLabel;
     }
 }

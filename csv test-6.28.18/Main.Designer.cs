@@ -573,6 +573,7 @@
             this.btnMakeCalls.TabIndex = 5;
             this.btnMakeCalls.Text = "Make Calls";
             this.btnMakeCalls.UseVisualStyleBackColor = false;
+            this.btnMakeCalls.Click += new System.EventHandler(this.btnMakeCalls_Click);
             // 
             // Main
             // 
