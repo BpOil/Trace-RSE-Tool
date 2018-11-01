@@ -347,8 +347,8 @@ namespace Trace_RSE_Tool
                 // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
                 string[,] copyData = reading.WordDoc();
                 // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-                int rowcount = copyData.GetUpperBound(0) + 1;
-                int colcount = copyData.GetUpperBound(1) + 1;
+                int rowcount = reading.RowNum;
+                int colcount = reading.ColNum;
                 // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
                 string[,] reorderData = new string[rowcount, 7];
                 try
@@ -442,8 +442,8 @@ namespace Trace_RSE_Tool
                 // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
                 string[,] copyData = reading.ExcelDoc();
                 // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-                int rowcount = copyData.GetUpperBound(0);
-                int colcount = copyData.GetUpperBound(1) + 1;
+                int rowcount = reading.RowNum;
+                int colcount = reading.ColNum;
                 // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
                 string[,] reorderData = new string[rowcount, 7];
 
@@ -547,11 +547,10 @@ namespace Trace_RSE_Tool
                 // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
                 string[,] copyData = reading.WordDoc();
                 // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-                int rowcount = copyData.GetUpperBound(0) + 1;
-                int colcount = copyData.GetUpperBound(1) + 1;
+                int rowcount = reading.RowNum;
+                int colcount = reading.ColNum;
                 // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
                 string[,] reorderData = new string[rowcount, 15];
-
                 try
                 {
                     for (int i = 0; i < rowcount; i++)
@@ -623,7 +622,6 @@ namespace Trace_RSE_Tool
                             }
                         }
                     }
-
                     string thisfile = String.Empty;
                     // CREATE A FILE SAVE DIALOG WITH DESIRED FILE FORMAT AND EXTENSION
                     SaveFileDialog fileStream = new SaveFileDialog();
@@ -662,8 +660,8 @@ namespace Trace_RSE_Tool
                 // CREATE AN ARRAY TO HOLD DATA VALUES FROM FILE
                 string[,] copyData = reading.ExcelDoc();
                 // CREATE INDEXES FOR # OF ROWS AND # OF COLUMNS
-                int rowcount = copyData.GetUpperBound(0) + 1;
-                int colcount = copyData.GetUpperBound(1) + 1;
+                int rowcount = reading.RowNum;
+                int colcount = reading.ColNum;
                 // CREATE AN ARRAY TO PLACE DATA VALUES IN DESIRED ORDER
                 string[,] reorderData = new string[rowcount, 15];
 

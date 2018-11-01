@@ -14,7 +14,9 @@ namespace Trace_RSE_Tool
 {
     class Read
     {
-        private string filePath;       
+        private string filePath;
+        public int RowNum;
+        public int ColNum;
         private string[] headerarray;
         private string[,] valuesArray;
         public Read()
@@ -146,6 +148,8 @@ namespace Trace_RSE_Tool
                         rowcount++;
                     }
                 }
+                RowNum = rowcount - 1;
+                ColNum = colcount;
                 string celltext = string.Empty;
                 // CREATE A MULTIDIMENSIONAL ARRAY, USING THE ROW/COLUMN COUNT VARIABLES AS THE SIZE
                 string[,] cellValues = new string[rowcount, colcount];
@@ -225,6 +229,8 @@ namespace Trace_RSE_Tool
                     rowcount++;                    
                 }
             }
+            RowNum = rowcount - 1;
+            ColNum = colcount;
             valuesArray = new string[rowcount, colcount];
             foreach (DataRow dr in dt.Rows)
             {
