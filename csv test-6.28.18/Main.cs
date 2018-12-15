@@ -989,7 +989,19 @@ namespace csv_test_6._28._18
         {
             if (radPhone.Checked)
             {
+
                 dataTable = excelSheetToDataTable(contactpath, false);
+
+                //check that the Call List was made by the RSE Tool so that there are no errors later 
+                if (!dataTable.Rows[0][0].Equals("Calling As") & !dataTable.Rows[1][0].Equals("Phone # Displayed") & !dataTable.Rows[2][0].Equals("Name Drop")
+                    & !dataTable.Rows[3][0].Equals("Engagements Needed") & !dataTable.Rows[4][0].Equals("Engagements per Day") & !dataTable.Rows[5][0].Equals("Current Engagements")
+                     & !dataTable.Rows[6][0].Equals("Business Hours"))
+                {
+                    MessageBox.Show("Please use a Call List that was created by the RSE Tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //exit method to return to the Main Class
+                    return;
+                }
+
                 dataTable.Rows[0].Delete();
                 dataTable.Rows[1].Delete();
                 dataTable.Rows[2].Delete();
