@@ -25,19 +25,9 @@ namespace csv_test_6._28._18
 
         public DataTable dataTable { get; set; }
 
-        public MakeCalls makeCalls { get; set; }
-
         private void Preview_Load(object sender, EventArgs e)
         {
             dataGridView.DataSource = dataTable;
-        } 
-
-        private void dataGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            dataGridView.Visible = false;
-            makeCalls.i = e.RowIndex - 1;
-            makeCalls.insertEmployeeInfo();
-            this.Close();
-        }
-    } //end of Preview Class
+        } //end of Preview Class
+    }
 }

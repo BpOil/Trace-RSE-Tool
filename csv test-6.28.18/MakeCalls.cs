@@ -19,8 +19,9 @@ namespace csv_test_6._28._18
 {
     public partial class MakeCalls : Form
     {
+
         private string filePath;
-        public int i = -1;
+        private int i = -1;
         private int lastRow;
         private bool displaySpoofcard;
         public bool failed;
@@ -252,7 +253,7 @@ namespace csv_test_6._28._18
             lastRow = dataTable.Rows.Count;
         }
 
-        public void insertEmployeeInfo()
+        private void insertEmployeeInfo()
         {
             //if the current row of the Employee DataTable is the last row then tell the user that it is going back to the top of the DataTable and then do so
             if (i == lastRow - 1)
@@ -350,7 +351,6 @@ namespace csv_test_6._28._18
             //if "Preview Data" button is clicked then display the current state of the Employee DataTable in it's own window
             Preview preview = new Preview();
             preview.dataTable = dataTable;
-            preview.makeCalls = this;
             preview.ShowDialog();
         }
 

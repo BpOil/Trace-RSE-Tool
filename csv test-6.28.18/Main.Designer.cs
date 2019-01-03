@@ -45,16 +45,11 @@
             this.btnInsightCSV = new System.Windows.Forms.Button();
             this.btnKnowbe4CSV = new System.Windows.Forms.Button();
             this.tabPhone = new System.Windows.Forms.TabPage();
-            this.btnMakeCalls = new System.Windows.Forms.Button();
             this.btnCreateCallList = new System.Windows.Forms.Button();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtPOC = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtClient = new System.Windows.Forms.TextBox();
+            this.txtAnalyst = new System.Windows.Forms.TextBox();
             this.radBoth = new System.Windows.Forms.RadioButton();
             this.radPhone = new System.Windows.Forms.RadioButton();
             this.radEmail = new System.Windows.Forms.RadioButton();
@@ -69,11 +64,11 @@
             this.lblPullContacts = new System.Windows.Forms.Label();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.btnMakeCalls = new System.Windows.Forms.Button();
             this.tabMAIN.SuspendLayout();
             this.tabEmail.SuspendLayout();
             this.tabPhone.SuspendLayout();
             this.tabReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelHead.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -303,24 +298,6 @@
             this.tabPhone.TabIndex = 1;
             this.tabPhone.ToolTipText = "Phone Tools";
             // 
-            // btnMakeCalls
-            // 
-            this.btnMakeCalls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.btnMakeCalls.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
-            this.btnMakeCalls.FlatAppearance.BorderSize = 2;
-            this.btnMakeCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMakeCalls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMakeCalls.ForeColor = System.Drawing.Color.White;
-            this.btnMakeCalls.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnMakeCalls.ImageIndex = 7;
-            this.btnMakeCalls.Location = new System.Drawing.Point(234, 42);
-            this.btnMakeCalls.Name = "btnMakeCalls";
-            this.btnMakeCalls.Size = new System.Drawing.Size(93, 44);
-            this.btnMakeCalls.TabIndex = 5;
-            this.btnMakeCalls.Text = "Make Calls";
-            this.btnMakeCalls.UseVisualStyleBackColor = false;
-            this.btnMakeCalls.Click += new System.EventHandler(this.btnMakeCalls_Click);
-            // 
             // btnCreateCallList
             // 
             this.btnCreateCallList.BackColor = System.Drawing.Color.Gray;
@@ -343,13 +320,9 @@
             // tabReport
             // 
             this.tabReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.tabReport.Controls.Add(this.pictureBox1);
-            this.tabReport.Controls.Add(this.dateTimePicker1);
-            this.tabReport.Controls.Add(this.label7);
-            this.tabReport.Controls.Add(this.label6);
-            this.tabReport.Controls.Add(this.label5);
-            this.tabReport.Controls.Add(this.txtPOC);
+            this.tabReport.Controls.Add(this.textBox1);
             this.tabReport.Controls.Add(this.txtClient);
+            this.tabReport.Controls.Add(this.txtAnalyst);
             this.tabReport.Controls.Add(this.radBoth);
             this.tabReport.Controls.Add(this.radPhone);
             this.tabReport.Controls.Add(this.radEmail);
@@ -362,77 +335,29 @@
             this.tabReport.Size = new System.Drawing.Size(397, 187);
             this.tabReport.TabIndex = 2;
             // 
-            // pictureBox1
+            // textBox1
             // 
-            this.pictureBox1.Image = global::csv_test_6._28._18.Properties.Resources.ajax_loader;
-            this.pictureBox1.Location = new System.Drawing.Point(190, 132);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(17, 17);
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(142, 99);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(100, 20);
-            this.dateTimePicker1.TabIndex = 17;
-            this.dateTimePicker1.Value = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(4, 73);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(138, 18);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "Point of Contact*";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(4, 101);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(131, 18);
-            this.label6.TabIndex = 18;
-            this.label6.Text = "Email Start Date";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(56, 45);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 18);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "Company*";
-            // 
-            // txtPOC
-            // 
-            this.txtPOC.Location = new System.Drawing.Point(142, 72);
-            this.txtPOC.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPOC.Name = "txtPOC";
-            this.txtPOC.Size = new System.Drawing.Size(100, 20);
-            this.txtPOC.TabIndex = 16;
-            this.txtPOC.TextChanged += new System.EventHandler(this.txtPOC_TextChanged);
+            this.textBox1.Location = new System.Drawing.Point(116, 100);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 16;
             // 
             // txtClient
             // 
-            this.txtClient.Location = new System.Drawing.Point(142, 44);
+            this.txtClient.Location = new System.Drawing.Point(116, 44);
             this.txtClient.Margin = new System.Windows.Forms.Padding(4);
             this.txtClient.Name = "txtClient";
             this.txtClient.Size = new System.Drawing.Size(100, 20);
             this.txtClient.TabIndex = 15;
-            this.txtClient.TextChanged += new System.EventHandler(this.txtClient_TextChanged);
+            // 
+            // txtAnalyst
+            // 
+            this.txtAnalyst.Location = new System.Drawing.Point(116, 72);
+            this.txtAnalyst.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAnalyst.Name = "txtAnalyst";
+            this.txtAnalyst.Size = new System.Drawing.Size(100, 20);
+            this.txtAnalyst.TabIndex = 14;
             // 
             // radBoth
             // 
@@ -448,7 +373,6 @@
             this.radBoth.TabStop = true;
             this.radBoth.Text = "Both";
             this.radBoth.UseVisualStyleBackColor = true;
-            this.radBoth.Click += new System.EventHandler(this.radBoth_Click);
             // 
             // radPhone
             // 
@@ -464,7 +388,6 @@
             this.radPhone.TabStop = true;
             this.radPhone.Text = "Phone";
             this.radPhone.UseVisualStyleBackColor = true;
-            this.radPhone.Click += new System.EventHandler(this.radPhone_Click);
             // 
             // radEmail
             // 
@@ -480,7 +403,6 @@
             this.radEmail.TabStop = true;
             this.radEmail.Text = "Email";
             this.radEmail.UseVisualStyleBackColor = true;
-            this.radEmail.Click += new System.EventHandler(this.radEmail_Click);
             // 
             // label2
             // 
@@ -496,7 +418,6 @@
             // btnReportShell
             // 
             this.btnReportShell.BackColor = System.Drawing.Color.Gray;
-            this.btnReportShell.Enabled = false;
             this.btnReportShell.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
             this.btnReportShell.FlatAppearance.BorderSize = 2;
             this.btnReportShell.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -507,7 +428,7 @@
             this.btnReportShell.Name = "btnReportShell";
             this.btnReportShell.Size = new System.Drawing.Size(101, 51);
             this.btnReportShell.TabIndex = 8;
-            this.btnReportShell.Text = "Create Report";
+            this.btnReportShell.Text = "Save As";
             this.btnReportShell.UseVisualStyleBackColor = false;
             this.btnReportShell.Click += new System.EventHandler(this.btnReportShell_Click);
             // 
@@ -636,6 +557,24 @@
             // 
             this.toolTips.ToolTipTitle = "Email Tools";
             // 
+            // btnMakeCalls
+            // 
+            this.btnMakeCalls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.btnMakeCalls.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(184)))), ((int)(((byte)(218)))));
+            this.btnMakeCalls.FlatAppearance.BorderSize = 2;
+            this.btnMakeCalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeCalls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakeCalls.ForeColor = System.Drawing.Color.White;
+            this.btnMakeCalls.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnMakeCalls.ImageIndex = 7;
+            this.btnMakeCalls.Location = new System.Drawing.Point(234, 42);
+            this.btnMakeCalls.Name = "btnMakeCalls";
+            this.btnMakeCalls.Size = new System.Drawing.Size(93, 44);
+            this.btnMakeCalls.TabIndex = 5;
+            this.btnMakeCalls.Text = "Make Calls";
+            this.btnMakeCalls.UseVisualStyleBackColor = false;
+            this.btnMakeCalls.Click += new System.EventHandler(this.btnMakeCalls_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -656,7 +595,6 @@
             this.tabPhone.ResumeLayout(false);
             this.tabReport.ResumeLayout(false);
             this.tabReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelHead.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -691,18 +629,14 @@
         private System.Windows.Forms.Button btnReportShell;
         private System.Windows.Forms.ImageList imagesSmall;
         private System.Windows.Forms.Button btnAddNew;
-        private System.Windows.Forms.TextBox txtPOC;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox txtClient;
+        private System.Windows.Forms.TextBox txtAnalyst;
         private System.Windows.Forms.Button btnOpenExcelFile;
         private System.Windows.Forms.Button btnPreview2;
         private System.Windows.Forms.Button btnCreateCallList;
         private System.Windows.Forms.ImageList imagesLarge;
         private System.Windows.Forms.Button btnMakeCalls;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
