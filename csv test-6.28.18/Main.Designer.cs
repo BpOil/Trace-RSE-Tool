@@ -48,7 +48,9 @@
             this.btnMakeCalls = new System.Windows.Forms.Button();
             this.btnCreateCallList = new System.Windows.Forms.Button();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelCurrentAction = new System.Windows.Forms.Label();
+            this.labelPercentage = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -69,11 +71,13 @@
             this.lblPullContacts = new System.Windows.Forms.Label();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.createVishingReport = new System.ComponentModel.BackgroundWorker();
+            this.createPhishingReport = new System.ComponentModel.BackgroundWorker();
+            this.createBothReport = new System.ComponentModel.BackgroundWorker();
             this.tabMAIN.SuspendLayout();
             this.tabEmail.SuspendLayout();
             this.tabPhone.SuspendLayout();
             this.tabReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelHead.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -343,7 +347,9 @@
             // tabReport
             // 
             this.tabReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.tabReport.Controls.Add(this.pictureBox1);
+            this.tabReport.Controls.Add(this.labelCurrentAction);
+            this.tabReport.Controls.Add(this.labelPercentage);
+            this.tabReport.Controls.Add(this.progressBar1);
             this.tabReport.Controls.Add(this.dateTimePicker1);
             this.tabReport.Controls.Add(this.label7);
             this.tabReport.Controls.Add(this.label6);
@@ -362,15 +368,37 @@
             this.tabReport.Size = new System.Drawing.Size(397, 187);
             this.tabReport.TabIndex = 2;
             // 
-            // pictureBox1
+            // labelCurrentAction
             // 
-            this.pictureBox1.Image = global::csv_test_6._28._18.Properties.Resources.ajax_loader;
-            this.pictureBox1.Location = new System.Drawing.Point(190, 132);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(17, 17);
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
+            this.labelCurrentAction.AutoSize = true;
+            this.labelCurrentAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentAction.ForeColor = System.Drawing.Color.White;
+            this.labelCurrentAction.Location = new System.Drawing.Point(160, 73);
+            this.labelCurrentAction.Name = "labelCurrentAction";
+            this.labelCurrentAction.Size = new System.Drawing.Size(82, 18);
+            this.labelCurrentAction.TabIndex = 22;
+            this.labelCurrentAction.Text = "Loading...";
+            this.labelCurrentAction.Visible = false;
+            // 
+            // labelPercentage
+            // 
+            this.labelPercentage.AutoSize = true;
+            this.labelPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPercentage.ForeColor = System.Drawing.Color.White;
+            this.labelPercentage.Location = new System.Drawing.Point(100, 122);
+            this.labelPercentage.Name = "labelPercentage";
+            this.labelPercentage.Size = new System.Drawing.Size(30, 17);
+            this.labelPercentage.TabIndex = 21;
+            this.labelPercentage.Text = "0%";
+            this.labelPercentage.Visible = false;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(98, 96);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(200, 23);
+            this.progressBar1.TabIndex = 20;
+            this.progressBar1.Visible = false;
             // 
             // dateTimePicker1
             // 
@@ -636,6 +664,30 @@
             // 
             this.toolTips.ToolTipTitle = "Email Tools";
             // 
+            // createVishingReport
+            // 
+            this.createVishingReport.WorkerReportsProgress = true;
+            this.createVishingReport.WorkerSupportsCancellation = true;
+            this.createVishingReport.DoWork += new System.ComponentModel.DoWorkEventHandler(this.createVishingReport_DoWork);
+            this.createVishingReport.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.createVishingReport_ProgressChanged);
+            this.createVishingReport.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.createVishingReport_RunWorkerCompleted);
+            // 
+            // createPhishingReport
+            // 
+            this.createPhishingReport.WorkerReportsProgress = true;
+            this.createPhishingReport.WorkerSupportsCancellation = true;
+            this.createPhishingReport.DoWork += new System.ComponentModel.DoWorkEventHandler(this.createPhishingReport_DoWork);
+            this.createPhishingReport.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.createPhishingReport_ProgressChanged);
+            this.createPhishingReport.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.createPhishingReport_RunWorkerCompleted);
+            // 
+            // createBothReport
+            // 
+            this.createBothReport.WorkerReportsProgress = true;
+            this.createBothReport.WorkerSupportsCancellation = true;
+            this.createBothReport.DoWork += new System.ComponentModel.DoWorkEventHandler(this.createBothReport_DoWork);
+            this.createBothReport.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.createBothReport_ProgressChanged);
+            this.createBothReport.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.createBothReport_RunWorkerCompleted);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -656,7 +708,6 @@
             this.tabPhone.ResumeLayout(false);
             this.tabReport.ResumeLayout(false);
             this.tabReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelHead.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -702,7 +753,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.ComponentModel.BackgroundWorker createVishingReport;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label labelPercentage;
+        private System.Windows.Forms.Label labelCurrentAction;
+        private System.ComponentModel.BackgroundWorker createPhishingReport;
+        private System.ComponentModel.BackgroundWorker createBothReport;
     }
 }
 

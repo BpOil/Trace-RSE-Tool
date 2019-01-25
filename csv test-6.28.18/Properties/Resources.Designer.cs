@@ -73,6 +73,16 @@ namespace csv_test_6._28._18.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap big_circle_loader {
+            get {
+                object obj = ResourceManager.GetObject("big circle loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap black_arrows {
             get {
                 object obj = ResourceManager.GetObject("black arrows", resourceCulture);

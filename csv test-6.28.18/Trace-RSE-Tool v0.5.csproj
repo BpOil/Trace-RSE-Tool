@@ -207,6 +207,7 @@
     <Content Include="knowbe4payloads\You have a Google Drive File Shared.txt" />
     <Content Include="knowbe4payloads\Your Customer Has Sent An eFax message - 4 pages.txt" />
     <Content Include="knowbe4payloads\Your Payment is Past Due.txt" />
+    <None Include="Resources\big circle loader.gif" />
     <None Include="Resources\black arrows.gif" />
     <None Include="Resources\ajax-loader.gif" />
   </ItemGroup>
